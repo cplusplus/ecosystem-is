@@ -1,0 +1,21 @@
+project /ecosystem
+	: build-dir .b2
+	;
+
+local tex-src = [ glob src/eco_*.tex src/in_*.tex ] ;
+
+make ecosystem.pdf : src/ecosystem.tex
+	:	@pdflatex
+	:	<dependency>$(tex-src)
+	;
+
+actions pdflatex
+{
+	export TEXMFDOTDIR="$(>:D)"
+	pdflatex "-output-directory=$(<:D)" -output-format=pdf -interaction=nonstopmode "$(>:D=)"
+	echo "==>" $?
+	pdflatex "-output-directory=$(<:D)" -output-format=pdf -interaction=nonstopmode "$(>:D=)"
+	echo "==>" $?
+	pdflatex "-output-directory=$(<:D)" -output-format=pdf -interaction=nonstopmode "$(>:D=)"
+	echo "==>" $?
+}
