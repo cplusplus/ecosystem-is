@@ -1,21 +1,30 @@
+import toolset ;
+
 project /ecosystem
 	: build-dir .b2
 	;
 
-local tex-src = [ glob src/eco_*.tex src/in_*.tex ] ;
+local tex-src = [ glob src/eco_*.tex src/in_*.tex src/*.ist ] ;
 
 make ecosystem.pdf : src/ecosystem.tex
-	:	@pdflatex
+	:	@latexmk
 	:	<dependency>$(tex-src)
+		<variant>debug:<flags>-verbose
+		<variant>debug:<flags>-diagnostics
+	;
+explicit ecosystem.pdf ;
+
+install ecosystem-is
+	:	ecosystem.pdf
+	:	<location>.
 	;
 
-actions pdflatex
+# Generic latexmk action.
+
+toolset.flags $(__name__).latexmk FLAGS <flags> ;
+
+actions latexmk
 {
-	export TEXMFDOTDIR="$(>:D)"
-	pdflatex "-output-directory=$(<:D)" -output-format=pdf -interaction=nonstopmode "$(>:D=)"
-	echo "==>" $?
-	pdflatex "-output-directory=$(<:D)" -output-format=pdf -interaction=nonstopmode "$(>:D=)"
-	echo "==>" $?
-	pdflatex "-output-directory=$(<:D)" -output-format=pdf -interaction=nonstopmode "$(>:D=)"
-	echo "==>" $?
+	export TEXINPUTS="$(>:D):${TEXINPUTS}"
+	latexmk $(FLAGS) -pdf -interaction=nonstopmode -logfilewarnings- -shell-escape -outdir="$(<:D)" -gg -auxdir="$(<:D)" "$(>:D=)"
 }

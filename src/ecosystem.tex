@@ -89,43 +89,16 @@
 %%--------------------------------------------------
 %% front matter
 \frontmatter
-\include{eco_front}
+\input{eco_front}
 
 %%--------------------------------------------------
 %% main body of the document
 \mainmatter
 \setglobalstyles
 
-\include{eco_intro}
-% \include{lex}
-% \include{basic}
-% \include{expressions}
-% \include{statements}
-% \include{declarations}
-% \include{modules}
-% \include{classes}
-% \include{overloading}
-% \include{templates}
-% \include{exceptions}
-% \include{preprocessor}
-% \include{lib-intro}
-% \include{support}
-% \include{concepts}
-% \include{diagnostics}
-% \include{memory}
-% \include{meta}
-% \include{utilities}
-% \include{strings}
-% \include{containers}
-% \include{iterators}
-% \include{ranges}
-% \include{algorithms}
-% \include{numerics}
-% \include{time}
-% \include{locales}
-% \include{iostreams}
-% \include{regex}
-% \include{threads}
+%%--------------------------------------------------
+%% chapters
+\input{eco_intro}
 
 %%--------------------------------------------------
 %% appendices
@@ -137,17 +110,13 @@
 \immediate\write\@auxout{\noexpand\@writefile{toc}{\noexpand\let\noexpand\chapternumberlinebox\noexpand\annexnumberlinebox}}
 \makeatother
 
-% \include{grammar}
-% \include{limits}
-% \include{compatibility}
-% \include{future}
-% \include{uax31}
+% \input{eco_appendix1}
+% \input{eco_appendix2}
 
 %%--------------------------------------------------
 %% back matter
 \backmatter
-\include{eco_back}
-
+\input{eco_back}
 
 %%--------------------------------------------------
 %% End of document
