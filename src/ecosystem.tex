@@ -42,7 +42,7 @@
             linkcolor=blue,
             plainpages=false}
 \usepackage{memhfixc}     % fix interactions between hyperref and memoir
-\usepackage[active,header=false,handles=false,copydocumentclass=false,generate=std-gram.ext,extract-cmdline={gramSec},extract-env={bnf,simplebnf}]{extract} % Grammar extraction
+% \usepackage[active,header=false,handles=false,copydocumentclass=false,generate=std-gram.ext,extract-cmdline={gramSec},extract-env={bnf,simplebnf}]{extract} % Grammar extraction
 \usepackage{expl3}
 \usepackage{xparse}
 \usepackage{xstring}
@@ -58,7 +58,7 @@
 \input{in_macros}
 \input{in_tables}
 
-\makeindex[name=generalindex,options=-s generalindex.ist,title=Index]
+\makeindex[name=generalindex,options=-s eco_generalindex.ist,title=Index]
 \makeglossary[xrefindex]
 \makeglossary[xrefdelta]
 
