@@ -3,7 +3,7 @@
 
 %%--------------------------------------------------
 %% basics
-\documentclass[a4paper,10pt,oneside,openany,final]{memoir}
+\documentclass[a4paper,10pt,twoside,openany,final]{memoir}
 
 \usepackage[american]
            {babel}        % needed for iso dates
@@ -46,6 +46,7 @@
 \usepackage{expl3}
 \usepackage{xparse}
 \usepackage{xstring}
+\usepackage{datetime2}
 
 \pdfminorversion=5
 \pdfcompresslevel=9
@@ -58,7 +59,7 @@
 \input{in_macros}
 \input{in_tables}
 
-\makeindex[name=generalindex,options=-s eco_generalindex.ist,title=Index]
+\makeindex[name=generalindex,title=Index,options=-s eco_generalindex.ist,intoc]
 \makeglossary[xrefindex]
 \makeglossary[xrefdelta]
 

@@ -1,13 +1,29 @@
 %!TEX root = ecosystem.tex
 %%--------------------------------------------------
+%% Release date
+\DTMsavenow{currentdate}
+\newcommand{\reldate}{\today}
+\newcommand{\relyear}{\DTMfetchyear{currentdate}}
+\newcommand{\relmonth}{\DTMfetchmonth{currentdate}}
+
 %% Version numbers
 \newcommand{\docno}{Dxxxx}
-\newcommand{\isodocno}{ISO/IEC XXXXX:YYYY(?)}
+\newcommand{\disno}{00000}
+\newcommand{\isodocno}{ISO/IEC \disno:\relyear(E)}
 \newcommand{\prevdocno}{Nnnnn}
-\newcommand{\cppver}{YYYYMML}
 
 %% Title
 \newcommand{\doctitle}{Working Draft, Standard for \Cpp{} Ecosystem}
 
-%% Release date
-\newcommand{\reldate}{\today}
+%% Common bits
+\newcommand{\isocopyright}{\copyright\ ISO/IEC \relyear\ --- All rights reserved}
+
+%% States
+\newcommand{\isodoctype}{Draft International Standard}
+\newcommand{\isodocstage}{(00) Preliminary}
+% \newcommand{\isodocstage}{(10) Proposal}
+% \newcommand{\isodocstage}{(20) Preparatory}
+% \newcommand{\isodocstage}{(30) Committee}
+% \newcommand{\isodocstage}{(40) Enquiry}
+% \newcommand{\isodocstage}{(50) Approval}
+% \newcommand{\isodocstage}{(60) Publication}

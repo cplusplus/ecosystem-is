@@ -1,16 +1,20 @@
 import toolset ;
 
 project /ecosystem
-	: build-dir .b2
+	: build-dir .build/.b2
+	: default-build release
 	;
 
 local tex-src = [ glob src/eco_*.tex src/in_*.tex src/*.ist ] ;
+local latexmkrc = [ glob src/*latexmkrc* ] ;
+local _ = " " ;
 
 make ecosystem.pdf : src/ecosystem.tex
 	:	@latexmk
 	:	<dependency>$(tex-src)
 		<variant>debug:<flags>-verbose
 		<variant>debug:<flags>-diagnostics
+		<flags>-r$(_)"$(latexmkrc[1])"
 	;
 explicit ecosystem.pdf ;
 

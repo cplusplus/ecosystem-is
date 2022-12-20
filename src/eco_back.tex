@@ -1,4 +1,31 @@
 %!TEX root = ecosystem.tex
 
+% Bibliography
+\input{eco_back_biblio}
+
+% Cross references
+% FIXME: For unknown reasons, hanging paragraphs are not indented within our
+% glossaries by default.
+\let\realglossitem\glossitem
+\renewcommand{\glossitem}[4]{\hangpara{4em}{1}\realglossitem{#1}{#2}{#3}{#4}}
+
+\clearpage
+\renewcommand{\glossaryname}{Cross references}
+\renewcommand{\preglossaryhook}{Each clause and subclause label is listed below
+along with the corresponding clause or subclause number and page number, in
+alphabetical order by label.\\}
+\twocolglossary
+\renewcommand{\leftmark}{\glossaryname}
+{
+\raggedright
+\printglossary[xrefindex]
+}
+
+% Index
+\clearpage
 \renewcommand{\leftmark}{\indexname}
+\renewcommand{\preindexhook}{Constructions whose name appears in \exposid{monospaced italics} are for exposition only.\\}
+{
+\raggedright
 \printindex[generalindex]
+}
