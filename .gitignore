@@ -236,4 +236,4 @@ report/*.html
 *.zip
 
 # Build dirs
-/.build
+.build

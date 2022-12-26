@@ -1,8 +1,11 @@
 import toolset ;
+import feature ;
+
+feature.feature doc-stage : draft final : propagated symmetric implicit ;
+feature.feature verbose : off on : propagated incidental ;
 
 project /ecosystem
-	: build-dir .build/.b2
-	: default-build release
+	: build-dir .build/b2
 	;
 
 local tex-src = [ glob src/eco_*.tex src/in_*.tex src/*.ist ] ;
@@ -12,9 +15,10 @@ local _ = " " ;
 make ecosystem.pdf : src/ecosystem.tex
 	:	@latexmk
 	:	<dependency>$(tex-src)
-		<variant>debug:<flags>-verbose
-		<variant>debug:<flags>-diagnostics
+		<verbose>on:<flags>-verbose
+		<verbose>on:<flags>-diagnostics
 		<flags>-r$(_)"$(latexmkrc[1])"
+		<doc-stage>final:<flags>-pretex=\"\\\\def\\\\isofinal{1}\"
 	;
 explicit ecosystem.pdf ;
 
@@ -30,5 +34,5 @@ toolset.flags $(__name__).latexmk FLAGS <flags> ;
 actions latexmk
 {
 	export TEXINPUTS="$(>:D):${TEXINPUTS}"
-	latexmk $(FLAGS) -pdf -interaction=nonstopmode -logfilewarnings- -shell-escape -outdir="$(<:D)" -gg -auxdir="$(<:D)" "$(>:D=)"
+	latexmk -pdf -interaction=nonstopmode -logfilewarnings- -shell-escape -gg -outdir="$(<:D)" -auxdir="$(<:D)" -makeindexfudge $(FLAGS) "$(>:D=)"
 }

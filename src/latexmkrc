@@ -1,4 +1,16 @@
 add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
+$clean_ext .= " glo gls";
 sub makeglo2gls {
-    system("makeindex -s basic.gst -o '$_[0]'.gls '$_[0]'.glo");
+    # "makeindex" does not work with any form of absolute paths. This does some
+    # directory gymnastics to "fudge" it to work manually.
+    my ( $base_name, $path ) = fileparse( $_[0] );
+    print "makeglo2gls ", $_[0], " ...\n";
+    my @args = ( "-s", "basic.gst", "-o", $base_name.".gls", $base_name.".glo" );
+    my $curdir = cwd;
+    chdir $path;
+    my $dir = cwd;
+    my $result = system "makeindex", @args;
+    print "CWD: ", $dir, " RUN: makeindex ", join(" ", @args), " ==> ", $result, "\n";
+    chdir $curdir;
+    return $result;
 }
