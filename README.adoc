@@ -14,69 +14,62 @@ involved in the development you can:
 
 * https://lists.isocpp.org/mailman/listinfo.cgi/sg15[Join the discussions through the WG21/SG15 reflector.]
 
-//// 
----------------------------
-Getting Started on Mac OS X
----------------------------
+== Getting Started
 
-Install the `MacTeX distribution <http://tug.org/mactex/>`_.
+=== LaTeX
 
-If you are on a slow network, you'll want to get the `BasicTeX package <http://tug.org/mactex/morepackages.html>`_ instead,
-then run the following command to install the other packages that the draft requires:
+You'll need a sufficiently recent and capable LaTeX distribution installed and
+accessible in the default execution path. The
+https://www.tug.org/texlive/[TeX Live] distribution is the most complete in that
+regard and is available in the regular platforms. You can consult either/or
+the instructions in the TeX Live documentation or the package manager for your
+OS. You'll want to make sure you can execute the `latexmk` command. Here are
+some quick instructions for some common systems:
 
-   sudo tlmgr install latexmk isodate substr relsize ulem fixme rsfs extract layouts enumitem l3packages l3kernel imakeidx splitindex xstring
+[cols="0,1",frame=ends,grid=rows,stripes=even]
+|===
 
----------------------------------------
-Getting Started on Debian-based Systems
----------------------------------------
+| Arch Linux
+a|
+[source,shell]
+----
+sudo pacman -S texlive-latexextra
+----
 
-Install the following packages:
+| Ubuntu, Debian, etc
+a|
+[source,shell]
+----
+sudo apt-get install latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended lmodern
+----
 
-   sudo apt-get install latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended lmodern
+| Fedora
+a|
+[source,shell]
+----
+dnf install latexmk texlive texlive-isodate texlive-relsize texlive-ulem texlive-fixme texlive-extract texlive-l3kernel texlive-l3packages texlive-splitindex texlive-imakeidx
+----
 
--------------------------
-Getting Started on Fedora
--------------------------
+| MacOS
+| Install https://www.tug.org/mactex/[MacTeX].
 
-Install the following packages:
+| Windows
+| Consult https://www.tug.org/texlive/windows.html[TeXLive instructions].
 
-   dnf install latexmk texlive texlive-isodate texlive-relsize texlive-ulem texlive-fixme texlive-extract texlive-l3kernel texlive-l3packages texlive-splitindex texlive-imakeidx
+|===
 
------------------------------
-Getting Started on Arch Linux
------------------------------
+=== Visual Studio Code
 
-Install the following packages:
+This repo is set up to work nicely with vscode. In particular if you install
+https://open-vsx.org/extension/James-Yu/latex-workshop[LaTeX Workshop]. Assuming
+you have the appropriate LaTeX tools installed and accessible vscode will
+automatically build a PDF you can preview in vscode and edit `tex` files
+semi-live. The resulting built files and PDF are placed in the
+`${workspaceFolder}/.build/vscode` directory.
 
-   pacman -S texlive-latexextra
+=== B2
 
------------------------------
-Getting Started on Microsoft Windows
------------------------------
-
-Install Perl (for example, using a `Cygwin installation <https://cygwin.com/install.html>`_ and adding perl.
-See `sample instructions <https://bennierobinson.com/programming/2016/01/24/perl-windows-2016.html>`_ for more details)
-
-Install `MiKTeX <https://miktex.org/download>`_
-
-------------
-Instructions
-------------
-
-To typeset the draft document, from the ``source`` directory run::
-
-  make
-
-That's it! You should now have an ``std.pdf`` containing the typeset draft.
-
-Generated input files
-=====================
-
-To regenerate figures from .dot files, run::
-
-   make <pdfname>
-
-For example::
-
-   make figvirt.pdf
- ////
+You can use the https://www.bfgroup.xyz/b2/[B2 build system] which has more
+ways to build the documents. Obviously you'll need to install LaTeX as above.
+And of course also install B2, if you don't already have it. Then you can just
+do: `b2` at the root to produce the default draft PDF.
