@@ -24,7 +24,7 @@
 \usepackage{amsmath}      % additional math symbols
 \usepackage{mathrsfs}     % mathscr font
 \usepackage[final]{microtype}
-\usepackage[splitindex,original]{imakeidx}
+\usepackage[original]{imakeidx}
 \usepackage{multicol}
 \usepackage{lmodern}
 \usepackage{xcolor}
@@ -59,7 +59,7 @@
 \input{in_macros}
 \input{in_tables}
 
-\makeindex[name=generalindex,title=Index,options=-s eco_generalindex.ist,intoc]
+\makeindex[name=generalindex,title=Index,options=-s eco_generalindex.ist]
 \makeglossary[xrefindex]
 \makeglossary[xrefdelta]
 
@@ -99,17 +99,19 @@
 
 %%--------------------------------------------------
 %% chapters
-\input{eco_intro}
+\input{eco_scope}
+\input{eco_refs}
+\input{eco_defs}
 
 %%--------------------------------------------------
 %% appendices
 \appendix
 
-% \include and \addtocontents don't mix; see
-% https://tex.stackexchange.com/questions/13914/toc-numbering-problem
-\makeatletter
-\immediate\write\@auxout{\noexpand\@writefile{toc}{\noexpand\let\noexpand\chapternumberlinebox\noexpand\annexnumberlinebox}}
-\makeatother
+% % \include and \addtocontents don't mix; see
+% % https://tex.stackexchange.com/questions/13914/toc-numbering-problem
+% \makeatletter
+% \immediate\write\@auxout{\noexpand\@writefile{toc}{\noexpand\let\noexpand\chapternumberlinebox\noexpand\annexnumberlinebox}}
+% \makeatother
 
 % \input{eco_appendix1}
 % \input{eco_appendix2}
