@@ -1,9 +1,9 @@
 = C++ Ecosystem International Standard Draft Sources
 
-These are the sources used to generate drafts of the C++ Ecosystem International
-Standard. These sources should not be considered an ISO publication,
-nor should documents generated from them unless officially adopted by
-the C++ working group (ISO/IEC JTC1/SC22/WG21).
+These are the sources used to generate drafts of the {CPP} Ecosystem
+International Standard. These sources should not be considered an ISO
+publication, nor should documents generated from them unless officially adopted
+by the {CPP} working group (ISO/IEC JTC1/SC22/WG21).
 
 == Get Involved
 
