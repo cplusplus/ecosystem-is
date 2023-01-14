@@ -22,11 +22,16 @@
 
 \makepagestyle{cpppage}
 
-\makeevenhead{cpppage}{\textbf{\isodocno}}{\docno}{\leftmark}
-\makeevenfoot{cpppage}{\textbf{\thepage}}{}{\isocopyright}
-
+\ifdefined\isofinal
+\makeoddhead{cpppage}{}{}{\textbf{\isodocno}}
+\makeevenhead{cpppage}{\textbf{\isodocno}}{}{}
+\else
 \makeoddhead{cpppage}{\leftmark}{\docno}{\textbf{\isodocno}}
+\makeevenhead{cpppage}{\textbf{\isodocno}}{\docno}{\leftmark}
+\fi
+
 \makeoddfoot{cpppage}{\isocopyright}{}{\textbf{\thepage}}
+\makeevenfoot{cpppage}{\textbf{\thepage}}{}{\isocopyright}
 
 \makeatletter
 \makepsmarks{cpppage}{%

@@ -73,3 +73,15 @@ You can use the https://www.bfgroup.xyz/b2/[B2 build system] which has more
 ways to build the documents. Obviously you'll need to install LaTeX as above.
 And of course also install B2, if you don't already have it. Then you can just
 do: `b2` at the root to produce the default draft PDF.
+
+=== Manual
+
+It's also possible to directly build the PDF doc from the command line:
+
+[source,shell]
+----
+cd src
+latexmk -pdf ecosystem.lex
+----
+
+Which will produce many files and a `ecosystem.pdf` result in the current dir.
