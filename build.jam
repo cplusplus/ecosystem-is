@@ -25,6 +25,8 @@ explicit ecosystem.pdf ;
 install ecosystem-is
 	:	ecosystem.pdf
 	:	<location>.
+		<doc-stage>draft:<name>ecosystem-is-draft.pdf
+		<doc-stage>final:<name>ecosystem-is-final.pdf
 	;
 
 # Generic latexmk action.
