@@ -1,0 +1,39 @@
+name: "Build Draft"
+
+on: [pull_request, push]
+
+jobs:
+  build:
+    name: Build IS Draft
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Update APT Cache
+        if: matrix.cfg.name == 'Linux'
+        run: sudo apt-get update
+
+      - name: Install (APT)
+        run: sudo apt-get install latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended lmodern
+
+      - name: Install (B2)
+        run: |
+          set -e
+          pushd ..
+          wget "https://github.com/bfgroup/b2/archive/release.zip" -O b2.zip
+          unzip b2.zip
+          cd b2-release
+          CXX= ./bootstrap.sh
+          CXX= sudo ./b2 install b2-install-layout=portable --prefix=/usr/bin
+          popd
+
+      - name: Build (PDF)
+        run: b2 --debug-configuration -d+2 doc-stage=draft,final
+
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: draft
+          path: ecosystem*.pdf
