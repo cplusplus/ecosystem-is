@@ -84,7 +84,7 @@ It's also possible to directly build the PDF doc from the command line:
 [source,shell]
 ----
 cd src
-latexmk -pdf ecosystem.lex
+latexmk -pdf ecosystem.tex
 ----
 
 Which will produce many files and a `ecosystem.pdf` result in the current dir.
