@@ -1,0 +1,68 @@
+%!TEX root = ecosystem.tex
+
+\infannex{intsjschm}{Tool Introspection JSON Schema}
+
+\rSec1[intsjschm.general]{General}
+
+\pnum
+This Annex describe defines the introspection capability schema
+\iref{intspct.schema} in terms of a \emph{JSON Schema}. A \emph{JSON Schema}
+refers to the IETF RFC draft "JSON Schema: A Media Type for Describing JSON
+Documents" as specified in
+https://json-schema.org/draft/2020-12/json-schema-core.html.
+
+\pnum
+This JSON Schema can be referenced as the \verb|$schema| field with URI value
+of \\
+\verb|"https://raw.githubusercontent.com/cplusplus/ecosystem-is/release/schema/std_info-1.0.0.json"|.
+
+\rSec1[intsjschm.spec]{JSON Schema Specification}
+
+\begin{outputblock}
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id":
+   "https://raw.githubusercontent.com/cplusplus/ecosystem-is/release/schema/std_info-1.0.0.json",
+ "title": "Tool Introspection Version 1.0.0 JSON Schema",
+ "required": [
+  "$schema",
+  "std:info"
+ ],
+ "$defs": {
+  "VersionSpec": {
+   "type": "string",
+   "pattern":
+     "^([0-9]+([.][0-9]+){0,2})|([[(][0-9]+([.][0-9]+){0,2},[0-9]+([.][0-9]+){0,2}[)\\]])$"
+  }
+ },
+ "anyOf": [
+  {
+   "type": "object",
+   "properties": {
+    "$schema": {
+     "description":
+      "The URI of the JSON schema corresponding to the version of the tool introspection format.",
+     "type": "string",
+     "format": "uri"
+    },
+    "std:info": {
+     "description": "The Tool Introspection format version.",
+     "$ref": "#/$defs/VersionSpec"
+    }
+   }
+  },
+  {
+   "type": "object",
+   "propertyNames": {
+    "type": "string",
+    "pattern": "^[a-z_]+(:[a-z_]+)+$"
+   },
+   "patternProperties": {
+    "": {
+     "$ref": "#/$defs/VersionSpec"
+    }
+   }
+  }
+ ]
+}
+\end{outputblock}
