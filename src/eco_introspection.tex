@@ -17,7 +17,7 @@ This clause specifies the \verb|std:info| capability \iref{intspct.cap}.
 
 \pnum
 \begin{outputblock}
-@\emph{application}@ [--std-info[=@\emph{declaration}@]] [--std-info-out=@\emph{file}@]
+@\emph{application}@ [--std-info[=@\grammarterm{declaration}@]] [--std-info-out=@\emph{file}@]
 \end{outputblock}
 
 \rSec1[intspct.options]{Options}
@@ -60,7 +60,7 @@ This option shall be supported.
 This option should be supported.
 
 \pnum
-\verb@--std-info=@\emph{declaration}
+\verb@--std-info=@\grammarterm{declaration}
 \begin{indented}
 	Declares the required capability version of the application.
 	The option can be specified any number of times.
@@ -121,7 +121,7 @@ An \emph{introspection object} can have the following fields.
 
 	\pnum
 	\fldname
-	\emph{capability-identifier} \iref{intspct.cap}
+	\grammarterm{capability-identifier} \iref{intspct.cap}
 
 	\pnum
 	\fldtype
@@ -129,9 +129,9 @@ An \emph{introspection object} can have the following fields.
 
 	\pnum
 	\fldval
-	The value shall be a \emph{version-number} for \emph{minimum level}
+	The value shall be a \grammarterm{version-number} for \emph{minimum level}
 	functionality.
-	Or the value shall be a \emph{version-range} for \emph{full level}
+	Or the value shall be a \grammarterm{version-range} for \emph{full level}
 	functionality.
   
 	\pnum
@@ -145,7 +145,7 @@ An \emph{introspection object} can have the following fields.
 \rSec1[intspct.cap]{Capabilities}
 
 \pnum
-\begin{bnf}
+\begin{ncbnf}
 
 \nontermdef{capability-identifier}\br
 	name scope-designator name \opt{sub-capability-identifier}
@@ -155,26 +155,25 @@ An \emph{introspection object} can have the following fields.
 
 \nontermdef{name}\br
 	\descr{one or more of:}\br
-	\terminal{a b c d e f g h i j k l m}\br
-	\terminal{n o p q r s t u v w x y z}\br
-	\terminal{_}
+	\ucode{0061} .. \ucode{007A} \uname{LATIN SMALL LETTER A .. Z}\br
+	\ucode{005F} \uname{LOW LINE}
 
 \nontermdef{scope-designator}\br
-	\terminal{:}
+	\ucode{003A} \uname{COLON}
 
-\end{bnf}
-
-\pnum
-A \emph{capability-identifier} is composed of two or more \emph{scope-designator}
-delimited \emph{name} parts.
+\end{ncbnf}
 
 \pnum
-The \emph{name} \verb|std| in a \emph{capability-identifier} is reserved for
-capabilities defined in this standard.
+A \grammarterm{capability-identifier} is composed of two or more
+\grammarterm{scope-designator} delimited \grammarterm{name} parts.
 
 \pnum
-Applications can specify vendor designated \emph{name} parts defined outside of
-this standard.
+The \grammarterm{name} \verb|std| in a \grammarterm{capability-identifier} is
+reserved for capabilities defined in this standard.
+
+\pnum
+Applications can specify vendor designated \grammarterm{name} parts defined
+outside of this standard.
 
 \rSec1[intspct.vers]{Versions}
 
@@ -194,16 +193,16 @@ That is, the version number \verb|i.j.k| is equivalent to version range
 \rSec2[intspct.vers.num]{Version Number}
 
 \pnum
-\begin{bnf}
+\begin{ncbnf}
 
 \nontermdef{version-number}\br
 	major-number \opt{minor-patch-part}
 
 \nontermdef{minor-patch-part}\br
-	\terminal{.} minor-number \opt{patch-part}
+	\ucode{002E} \uname{FULL STOP} minor-number \opt{patch-part}
 
 \nontermdef{patch-part}\br
-	\terminal{.} patch-number
+	\ucode{002E} \uname{FULL STOP} patch-number
 
 \nontermdef{major-number}\br
 	digits
@@ -216,13 +215,13 @@ That is, the version number \verb|i.j.k| is equivalent to version range
 
 \nontermdef{digits}\br
 	\descr{one or more of:}\br
-	\terminal{0 1 2 3 4 5 6 7 8 9}
+	\ucode{0030} .. \ucode{0039} \uname{DIGIT ZERO .. NINE}
 
-\end{bnf}
+\end{ncbnf}
 
 \pnum
-A version number is composed of 1, 2, or 3 decimal numbers (\emph{digits})
-separated by a period (\verb|.|).
+A version number is composed of 1, 2, or 3 decimal numbers
+(\grammarterm{digits}) separated by a \ucode{002E} \uname{FULL STOP}.
 
 \pnum
 A version number composed of 1 decimal number is equivalent to that decimal
@@ -258,13 +257,15 @@ Otherwise version number \emph{a} is the same as version number \emph{b}.
 \rSec2[intspct.vers.range]{Version Range}
 
 \pnum
-\begin{bnf}
+\begin{ncbnf}
 
 \nontermdef{version-range}\br
-	version-range-min-bracket version-min-number \opt{version-range-max-part}
+	version-range-min-bracket
+	version-min-number \opt{version-range-max-part}
+	version-range-max-bracket
 
 \nontermdef{version-range-max-part}\br
-	\terminal{,} version-max-number version-range-max-bracket
+	\ucode{002C} \uname{COMMA} version-max-number
 
 \nontermdef{version-min-number}\br
 	version-number
@@ -274,17 +275,19 @@ Otherwise version number \emph{a} is the same as version number \emph{b}.
 
 \nontermdef{version-range-min-bracket}\br
 	\descr{one of:}\br
-	\terminal{[ (}
+	\ucode{005B} \uname{LEFT SQUARE BRACKET}
+	\ucode{0028} \uname{LEFT PARENTHESIS}
 
 \nontermdef{version-range-max-bracket}\br
 	\descr{one of:}\br
-	\terminal{) ]}
+	\ucode{005D} \uname{RIGHT SQUARE BRACKET}
+	\ucode{0029} \uname{RIGHT PARENTHESIS}
 
-\end{bnf}
+\end{ncbnf}
 
 \pnum
 A version range is composed of either one version number bracketed,
-or two version numbers separated by a comma (\verb|,|) and bracketed.
+or two version numbers separated by a \ucode{002C} \uname{COMMA} and bracketed.
 
 \begin{example}
 A version range with a single version number "\verb|[1.0.0]|".
@@ -393,21 +396,21 @@ value of the capability field.
 
 \pnum
 An application that supports the \emph{full level} functionality when given one
-or more \verb|--std-info=|\emph{declaration} options shall conform its
+or more \verb|--std-info=|\grammarterm{declaration} options shall conform its
 functionality to the indicated edition of this standard in the given
-\emph{declaration} \emph{version-number} for the given capability.
+\grammarterm{declaration} \grammarterm{version-number} for the given capability.
 
-\begin{bnf}
+\begin{ncbnf}
 
 \nontermdef{declaration}\br
-	capability-identifier \terminal{=} version-number
+	capability-identifier \ucode{003d} \uname{equals sign} version-number
 
-\end{bnf}
+\end{ncbnf}
 
 \pnum
-An application, when not given a \verb|--std-info=|\emph{declaration} option for
-a capability it supports, should conform its functionality to the most recent
-version of the standard it supports for that capability.
+An application, when not given a \verb|--std-info=|\grammarterm{declaration}
+option for a capability it supports, should conform its functionality to the
+most recent version of the standard it supports for that capability.
 
 \pnum
 An application, when given a capability declaration option and the given
