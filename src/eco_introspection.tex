@@ -125,15 +125,21 @@ An \emph{introspection object} can have the following fields.
 
 	\pnum
 	\fldtype
-	\verb|string|
+	\verb|string| or \verb|array|
 
 	\pnum
-	\fldval
+	\fldval (for \verb|string|)
 	The value shall be a \grammarterm{version-number} for \emph{minimum level}
 	functionality.
 	Or the value shall be a \grammarterm{version-range} for \emph{full level}
 	functionality.
-  
+
+	\pnum
+	\fldval (for \verb|array|)
+	The value can be a JSON \verb|array| for \emph{full level} functionality.
+	If the value is a JSON \verb|array| the items in the \verb|array| shall be a
+	\grammarterm{version-number} or \grammarterm{version-range}.
+	
 	\pnum
 	\flddesc
 	An \emph{introspection object} can contain this field one or more times.
@@ -205,23 +211,31 @@ That is, the version number \verb|i.j.k| is equivalent to version range
 	\ucode{002E} \uname{FULL STOP} patch-number
 
 \nontermdef{major-number}\br
-	digits
+	decimal
 
 \nontermdef{minor-number}\br
-	digits
+	decimal
 
 \nontermdef{patch-number}\br
-	digits
+	decimal
 
-\nontermdef{digits}\br
-	\descr{one or more of:}\br
-	\ucode{0030} .. \ucode{0039} \uname{DIGIT ZERO .. NINE}
+\nontermdef{decimal}\br
+	\descr{one  of:} \ucode{0030} .. \ucode{0039} \uname{DIGIT ONE .. NINE} \br
+	\descr{zero or more of:} \ucode{0030} .. \ucode{0039} \uname{DIGIT ZERO .. NINE}
 
 \end{ncbnf}
 
 \pnum
+A \grammarterm{decimal} is a sequence of decimal digits
+(\ucode{0030} .. \ucode{0039} \uname{DIGIT ZERO .. NINE})
+with no superfluous leading zeros (\ucode{0030} \uname{DIGIT ZERO}).
+
+\pnum
+A \grammarterm{decimal} represents a non-negative base 10 integer.
+
+\pnum
 A version number is composed of 1, 2, or 3 decimal numbers
-(\grammarterm{digits}) separated by a \ucode{002E} \uname{FULL STOP}.
+(\grammarterm{decimal}) separated by a \ucode{002E} \uname{FULL STOP}.
 
 \pnum
 A version number composed of 1 decimal number is equivalent to that decimal
@@ -240,16 +254,18 @@ That is, the version number \verb|N.M| is equivalent to \verb|N.M.0|.
 \end{note}
 
 \pnum
-Version numbers define a total ordering where version number \emph{a} with parts
-\emph{i}, \emph{j}, \emph{k} is ordered before version number \emph{b} with
-parts \emph{p}, \emph{q}, \emph{r} when: \emph{i} < \emph{p}, or \emph{i} ==
-\emph{p} and \emph{j} < \emph{q}, or \emph{i} == \emph{p} and \emph{j} ==
-\emph{q} and \emph{k} < \emph{r}.
+Version numbers define a total ordering where version number \emph{a} with
+decimal parts \emph{i}, \emph{j}, \emph{k} is ordered before version number
+\emph{b} with decimal parts \emph{p}, \emph{q}, \emph{r} when: \emph{i} is less
+than \emph{p}, or \emph{i} is equal to \emph{p} and \emph{j} is less than
+\emph{q}, or \emph{i} is equal to \emph{p} and \emph{j} is equal to \emph{q} and
+\emph{k} is less than \emph{r}.
 
 \pnum
 Otherwise version number \emph{a} is ordered before version number \emph{b}
-when: \emph{i} > \emph{p}, or \emph{i} == \emph{p} and \emph{j} > \emph{q}, or
-\emph{i} == \emph{p} and \emph{j} == \emph{q} and \emph{k} > \emph{r}.
+when: \emph{i} is greater than \emph{p}, or \emph{i} is equal to \emph{p} and
+\emph{j} is greater than \emph{q}, or \emph{i} is equal to \emph{p} and
+\emph{j} is equal to \emph{q} and \emph{k} is greater than \emph{r}.
 
 \pnum
 Otherwise version number \emph{a} is the same as version number \emph{b}.
@@ -274,12 +290,12 @@ Otherwise version number \emph{a} is the same as version number \emph{b}.
 	version-number
 
 \nontermdef{version-range-min-bracket}\br
-	\descr{one of:}\br
+	\descr{one of:}
 	\ucode{005B} \uname{LEFT SQUARE BRACKET}
 	\ucode{0028} \uname{LEFT PARENTHESIS}
 
 \nontermdef{version-range-max-bracket}\br
-	\descr{one of:}\br
+	\descr{one of:}
 	\ucode{005D} \uname{RIGHT SQUARE BRACKET}
 	\ucode{0029} \uname{RIGHT PARENTHESIS}
 
@@ -299,15 +315,18 @@ A version range with a two version numbers "\verb|[1.0.0,2.0.0]|".
 
 \pnum
 A version range \emph{a} that is \verb|[|\emph{i}\verb|,|\emph{j}\verb|]| makes
-\emph{i} and \emph{j} inclusive version range numbers.
+\emph{i} and \emph{j} inclusive version range numbers, defining a Mathematics
+closed interval.
 
 \pnum
 A version range \emph{a} that is \verb|(|\emph{i}\verb|,|\emph{j}\verb|)| makes
-\emph{i} and \emph{j} exclusive version range numbers.
+\emph{i} and \emph{j} exclusive version range numbers, defining a Mathematics
+open interval.
 
 \pnum
 A version range \emph{a} that is \verb|(|\emph{i}\verb|,|\emph{j}\verb|]| makes
-\emph{i} an exclusive version number.
+\emph{i} an exclusive version number and \emph{j} an inclusive version number,
+defining a Mathematics half-open interval.
 
 \pnum
 A version range \emph{a} that is \verb|[|\emph{i}\verb|,|\emph{j}\verb|)| makes
@@ -373,13 +392,16 @@ functionality shall support all of the functionality in this section.
 
 \pnum
 An application that supports the \emph{full level} functionality indicates it by
-specifying a version range \iref{intspct.vers.range} as the value of the
-\verb|std:info| capability  \iref{intspct.cap}.
+specifying a version range \iref{intspct.vers.range} or an array of version
+range items as the value of the \verb|std:info| capability  \iref{intspct.cap}.
 
 \begin{example}
 \verb|{ "std:info": "[1.0.0]" }|
 \end{example}
-	
+
+An application that responds with an array of version range items as the value
+of a capability field shall support the union of the range items indicated.
+
 \rSec1[intspct.info]{Introspection Information}
 
 \pnum
