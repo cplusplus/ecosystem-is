@@ -61,9 +61,10 @@
 \def\stopindexescape#1\doneindexescape{}
 
 %%--------------------------------------------------
-%% Cross references.
+%% Cross-references.
 %%--------------------------------------------------
 \newcommand{\addxref}[1]{%
+ \hypertarget{#1}{}%
  \glossary[xrefindex]{\indexescape{#1}}{(\ref{\indexescape{#1}})}%
 }
 
@@ -92,6 +93,7 @@
 % defines a first-level section whose name is "Scope" and whose short
 % tag is intro.scope.  The square brackets are mandatory.
 \def\Sec#1[#2]#3{%
+\addxref{#2}%
 \ifcase#1\let\s=\chapter\let\l=\clauselabel
       \or\let\s=\section\let\l=\label
       \or\let\s=\subsection\let\l=\label
@@ -99,7 +101,7 @@
       \or\let\s=\paragraph\let\l=\label
       \or\let\s=\subparagraph\let\l=\label
       \fi%
-\s[#3]{#3\hfill[#2]}\l{#2}\addxref{#2}%
+\s[#3]{#3\hfill[#2]}\l{#2}%
 }
 
 % A convenience feature (mostly for the convenience of the Project
@@ -175,7 +177,7 @@
 % This command uses the "cooked" \indeximpldef command to emit index
 % entries; thus they only work for simple index entries that do not contain
 % special indexing instructions.
-\newcommand{\impldef}[1]{\indeximpldef{#1}implementation-defined}
+\newcommand{\impldef}[1]{\indeximpldef{#1}imple\-men\-ta\-tion-defined}
 % \impldefplain passes the argument directly to the index, allowing you to
 % use special indexing instructions (!, @, |).
 \newcommand{\impldefplain}[1]{\index[impldefindex]{#1}implementation-defined}
@@ -219,7 +221,7 @@
 % General code style
 %%--------------------------------------------------
 \newcommand{\CodeStyle}{\ttfamily}
-\newcommand{\CodeStylex}[1]{\texttt{#1}}
+\newcommand{\CodeStylex}[1]{\texttt{\protect\frenchspacing #1}}
 
 \definecolor{grammar-gray}{gray}{0.2}
 
@@ -267,6 +269,10 @@
 \newcommand{\CppXIV}{\Cpp{} 2014}
 \newcommand{\CppXVII}{\Cpp{} 2017}
 \newcommand{\CppXX}{\Cpp{} 2020}
+\newcommand{\CppXXIII}{\Cpp{} 2023}
+\newcommand{\CppXXVI}{\Cpp{} 2026}
+\newcommand{\IsoCUndated}{ISO/IEC 9899}
+\newcommand{\IsoC}{\IsoCUndated{}:2018}
 \newcommand{\opt}[1]{#1\ensuremath{_\mathit{\color{black}opt}}}
 \newcommand{\bigoh}[1]{\ensuremath{\mathscr{O}(#1)}}
 
@@ -303,7 +309,9 @@
 {\noteoutro{#3}}
 \newenvironment{#1}
 {\begin{tail#1}}
-{\end{tail#1}\small\par}   % \small\par is for C++20 post-DIS compatibility
+% \small\par is for C++20 post-DIS compatibility
+{\end{tail#1}\small\par\penalty -200}
+
 }
 
 \newnoteenvironment{note}{Note \arabic{note}}{end note}
@@ -355,9 +363,9 @@
 \newcommand{\fldval}{\Fundesc{Value}}
 \newcommand{\flddesc}{\Fundesc{Description}}
 
-%% Cross reference
+%% Cross-reference
 \newcommand{\xref}{\textsc{See also:}\space}
-\newcommand{\xrefc}[1]{\xref{} ISO C #1}
+\newcommand{\xrefc}[1]{\xref{} \IsoC{}, #1}
 
 %% Inline comma-separated parenthesized references
 \ExplSyntaxOn
@@ -412,6 +420,7 @@
 }
 \newcommand{\uname}[1]{\textsc{#1}}
 \newcommand{\unicode}[2]{\ucode{#1} \uname{#2}}
+\newcommand{\UAX}[1]{\texorpdfstring{UAX~\textsmaller[1]{\raisebox{0.35ex}{\#}}#1}{UAX \##1}}
 \newcommand{\NTS}[1]{\textsc{#1}}
 \newcommand{\ntbs}{\NTS{ntbs}}
 \newcommand{\ntmbs}{\NTS{ntmbs}}
@@ -710,18 +719,23 @@
 %%--------------------------------------------------
 %% Environment for imported graphics
 %%--------------------------------------------------
-% usage: \begin{importgraphic}{CAPTION}{TAG}{FILE}
+% usage: \begin{importgraphic}{CAPTION}{TAG}{FILE}\end{importgraphic}
+%        \importexample[VERTICAL OFFESET]{FILE}
+%
+% The filename is relative to the source/assets directory.
 
 \newenvironment{importgraphic}[3]
 {%
 \newcommand{\cptn}{#1}
 \newcommand{\lbl}{#2}
 \begin{figure}[htp]\centering%
-\includegraphics[scale=.35]{#3}
+\includegraphics[scale=.35]{assets/#3}
 }
 {
 \caption{\cptn \quad [fig:\lbl]}\label{fig:\lbl}%
 \end{figure}}
+
+\newcommand{\importexample}[2][-0.9pt]{\raisebox{#1}{\includegraphics{assets/#2}}}
 
 %%--------------------------------------------------
 %% Definitions section for "Terms and definitions"
