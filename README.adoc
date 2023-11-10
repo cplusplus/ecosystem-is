@@ -33,7 +33,7 @@ some quick instructions for some common systems:
 a|
 [source,shell]
 ----
-> sudo pacman -S texlive-latexextra
+> sudo pacman -S texlive-latexextra texlive-binextra texlive-plaingeneric texlive-fontsrecommended
 ----
 
 | *Ubuntu, Debian, etc*

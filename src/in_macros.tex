@@ -349,6 +349,12 @@
 \newcommand{\ctype}{\Fundesc{Type}}
 \newcommand{\templalias}{\Fundesc{Alias template}}
 
+%% Scheme field descriptions
+\newcommand{\fldname}{\Fundesc{Name}}
+\newcommand{\fldtype}{\Fundesc{Type}}
+\newcommand{\fldval}{\Fundesc{Value}}
+\newcommand{\flddesc}{\Fundesc{Description}}
+
 %% Cross reference
 \newcommand{\xref}{\textsc{See also:}\space}
 \newcommand{\xrefc}[1]{\xref{} ISO C #1}
@@ -540,13 +546,14 @@
         commentstyle=\itshape\rmfamily,
         columns=fullflexible,
         keepspaces=true,
-        texcl=true}
+        texcl=true,
+        escapechar=@}
 
 % Our usual abbreviation for 'listings'.  Comments are in
 % italics.  Arbitrary TeX commands can be used if they're
 % surrounded by @ signs.
 \newcommand{\CodeBlockSetup}{%
-\lstset{escapechar=@, aboveskip=\parskip, belowskip=0pt,
+\lstset{aboveskip=\parskip, belowskip=0pt,
         midpenalty=500, endpenalty=-50,
         emptylinepenalty=-250, semicolonpenalty=0,upquote=true}%
 \renewcommand{\tcode}[1]{\textup{\CodeStylex{##1}}}
