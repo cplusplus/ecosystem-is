@@ -36,5 +36,5 @@ toolset.flags $(__name__).latexmk FLAGS <flags> ;
 actions latexmk
 {
 	export TEXINPUTS="$(>:D):${TEXINPUTS}"
-	latexmk -pdf -interaction=nonstopmode -logfilewarnings- -shell-escape -gg -outdir="$(<:D)" -auxdir="$(<:D)" -makeindexfudge $(FLAGS) "$(>:D=)"
+	latexmk -f -pdf -interaction=nonstopmode -logfilewarnings- -shell-escape -gg -outdir="$(<:D)" -auxdir="$(<:D)" -makeindexfudge $(FLAGS) "$(>:D=)"
 }
