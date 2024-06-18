@@ -17,7 +17,6 @@ jobs:
         uses: actions/checkout@main
 
       - name: Update APT Cache
-        if: matrix.cfg.name == 'Linux'
         run: sudo apt-get update
 
       - name: Install (APT)
