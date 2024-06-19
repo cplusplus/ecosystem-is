@@ -32,7 +32,7 @@ output \iref{intspct.schema.cap}.
 @\emph{application}@ [ @\grammarterm{std-strctopt-input-opt}@ [@\emph{file}@] ]
 \end{outputblock}
 
-\rSec2[strctopt.input]{Input Option}
+\rSec1[strctopt.input]{Input Option}
 
 \pnum
 \grammarterm{std-strctopt-input-opt}
@@ -42,7 +42,7 @@ output \iref{intspct.schema.cap}.
 	\emph{file} is ‘\verb@-@’, the standard input shall be used.
 \end{indented}
 
-\rSec2[strctopt.file]{Files}
+\rSec1[strctopt.file]{Files}
 
 \pnum
 An application shall read a valid JSON text file that conforms to the
@@ -55,13 +55,13 @@ and arguments in the file occur in the same position as the
 the application. Given either directly as part of the application command line
 or as part of the arguments field \iref{strctopt.schema.args}.
 
-\rSec2[strctopt.schema]{Schema}
+\rSec1[strctopt.schema]{Schema}
 
 \pnum
 A \emph{structured options} JSON text file shall contain one \emph{structured
 options} JSON object \iref{strctopt.schema.obj}.
 
-\rSec3[strctopt.schema.obj]{Structured Options Object}
+\rSec2[strctopt.schema.obj]{Structured Options Object}
 
 \pnum
 The \emph{structured options} object is the root JSON object of the structured
@@ -70,7 +70,7 @@ options JSON text.
 \pnum
 A \emph{structure options} object can have the following fields.
 
-\rSec3[strctopt.schema.schema]{JSON Schema Field}
+\rSec2[strctopt.schema.schema]{JSON Schema Field}
 
 \begin{itemdescr}
 
@@ -89,7 +89,7 @@ A \emph{structure options} object can have the following fields.
 
 \end{itemdescr}
 
-\rSec3[strctopt.schema.ver]{Version Field}
+\rSec2[strctopt.schema.ver]{Version Field}
 
 \begin{itemdescr}
 
@@ -107,7 +107,7 @@ A \emph{structure options} object can have the following fields.
 
 \end{itemdescr}
 
-\rSec3[strctopt.schema.args]{Arguments Field}
+\rSec2[strctopt.schema.args]{Arguments Field}
 
 \begin{itemdescr}
 
@@ -128,7 +128,7 @@ A \emph{structure options} object can have the following fields.
 The application shall process the items as if they replace the
 \grammarterm{std-strctopt-input-opt} argument.
 
-\rSec3[strctopt.schema.opts]{Options Field}
+\rSec2[strctopt.schema.opts]{Options Field}
 
 \begin{itemdescr}
 
@@ -178,7 +178,7 @@ The \grammarterm{name} \verb|std| is reserved for \emph{flag options} and
 Applications can specify vendor designated \grammarterm{name} parts outside of
 this standard.
 
-\rSec3[strctopt.schema.flag]{Flag Option}
+\rSec2[strctopt.schema.flag]{Flag Option}
 
 \pnum
 \begin{ncbnf}
@@ -231,7 +231,7 @@ by effects of that behavior.
 A \emph{flag option} without a \grammarterm{scope} shall be equivalent the same
 \emph{flag option} with a \verb|std.| scope.
 
-\rSec3[strctopt.schema.struct]{Structured Option}
+\rSec2[strctopt.schema.struct]{Structured Option}
 
 \pnum
 A \emph{structured option} JSON object shall contain a
@@ -267,7 +267,7 @@ specified by the option specification.
 A \emph{structured option} without a \grammarterm{scope} shall be equivalent to
 the same \emph{structured option} with a \verb|std.| \grammarterm{scope}.
 
-\rSec3[strctopt.schema.opt.opt]{Option std.opt}
+\rSec2[strctopt.schema.opt.opt]{Option std.opt}
 
 \pnum
 The \verb|std.opt| option defines an option to refer to additional structured
