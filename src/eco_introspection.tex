@@ -1,29 +1,481 @@
 %!TEX root = ecosystem.tex
 
+% intspct
 \rSec0[intspct]{Introspection}
 
+% intspct.pre
 \rSec1[intspct.pre]{Preamble}
 
 \pnum
 This clause describes options, output, and formats that describe what
-capabilities of this standard an application supports.
+capabilities of this standard an application supports. An application shall
+support the \emph{minimum level} functionality \iref{intspct.min}. An
+application can support the \emph{full level} functionality \iref{intspct.full}.
 
+\pnum
+This clause specifies the \verb|std.info| capability \iref{intspct.cap}.
+
+% intspct.overview
 \rSec1[intspct.overview]{Overview}
 
+\pnum
+\begin{outputblock}
+@\emph{application}@ [ @\grammarterm{std-info-opt}@ [@\grammarterm{declaration}@] ] [ @\grammarterm{std-info-out-opt}@ @\emph{file}@ ]
+\end{outputblock}
+
+% intspct.options
 \rSec1[intspct.options]{Options}
 
+\pnum
+Applications shall accept one of two options syntax variations:
+\verb|--name=value| (\verb|--name| without a value) or
+\verb|-name:value| (\verb|-name| without a value).
+
+\pnum
+Applications shall indicate an error if invoked with an option syntax variation
+that it does not support.
+
+\begin{note}
+	An application will report the error in what is conventional for the
+	platform it runs in. On POSIX and Windows it would return an error code,
+	and optionally output to the error stream.
+\end{note}
+
+\begin{note}
+	It is up to a program that interacts with an application implementing
+	introspection to determine what option syntax variation the application
+	supports. One method to accomplish that is to execute the application with
+	one of the two syntax styles and use the error indication to conclude which
+	syntax works. Another is to have a priori knowledge of which syntax
+	variation works.
+\end{note}
+
+% intspct.opt.info
+\rSec2[intspct.opt.info]{Information Option}
+
+\pnum
+This option shall be supported.
+
+\pnum
+\grammarterm{std-info-opt}
+\begin{indented}
+	Outputs the version information of the capabilities supported by the
+	application.
+	The option is specified as \verb@--std-info@ or \verb@-std-info@.
+	The option can be specified zero or one time.
+	The application shall support the option for \emph{minimum level}
+	\iref{intspct.min} functionality.
+\end{indented}
+
+% intspct.opt.out
+\rSec2[intspct.opt.out]{Information Output Option}
+
+\pnum
+This option shall be supported.
+
+\pnum
+\grammarterm{std-info-out-opt} \grammarterm{file}
+\begin{indented}
+	The pathname of a file to output the information to.
+	The option is specified as \verb@--std-info-out=file@ or
+	\verb@-std-info-out:file@.
+	If \emph{file} is ‘\verb@-@’, the standard output shall be used.
+	The application shall support the option for \emph{minimum level}
+	\iref{intspct.min} functionality.
+	Not specifying this option while specifying the
+	\grammarterm{std-info-opt} option \iref{intspct.opt.info} shall be
+	equivalent to also specifying a \grammarterm{std-info-out-opt}
+	\grammarterm{file} option where \emph{file} is ‘\verb@-@’.
+\end{indented}
+
+% intspct.opt.decl
+\rSec2[intspct.opt.decl]{Declaration Option}
+
+\pnum
+This option should be supported.
+
+\pnum
+\grammarterm{std-info-opt} \grammarterm{declaration}
+\begin{indented}
+	Declares the required capability version of the application.
+	The option is specified as \verb@--std-info=@\emph{declaration} or
+	\verb@-std-info:@\emph{declaration}.
+	The option can be specified any number of times.
+	The application shall support the option for \emph{full level}
+	\iref{intspct.full} functionality.
+\end{indented}
+
+% intspct.output
 \rSec1[intspct.output]{Output}
 
+\pnum
+An application shall output a valid JSON text file that conforms to the
+introspection schema \iref{intspct.schema} to the file specified in the options
+\iref{intspct.opt.out}.
+
+% intspct.file
+\rSec1[intspct.file]{Files}
+
+\pnum
+An application can provide an \emph{introspection file} that contains valid
+JSON that conforms to the introspection schema \iref{intspct.schema}.
+
+\pnum
+An \emph{introspection file} shall contain the same information as that produced
+from the \grammarterm{std-info-opt} information option \iref{intspct.opt.info}.
+
+\pnum
+An \emph{introspection file} shall be named the same as the application with
+any filename extension replaced with the \verb@stdinfo@ filename extension. It
+is implementation defined how the filename of the introspection file replaces
+the application filename extension with the new \verb@stdinfo@ filename
+extension.
+
+\begin{note}
+	For Windows, POSIX, and other platforms replacing the filename extension
+	would remove any filename bytes after the last period
+	(\ucode{002E} \uname{FULL STOP}) and append the \verb@stdinfo@ sequence of
+	bytes.
+\end{note}
+
+\pnum
+An \emph{introspection file} shall either have the same parent directory as
+the application, have an implementation defined parent directory that is
+relative to the parent directory of the application, or have an implementation
+defined parent directory.
+
+% intspct.schema
 \rSec1[intspct.schema]{Schema}
 
+\pnum
+An introspection JSON text file shall contain one introspection JSON object
+\iref{intspct.schema.obj}.
+
+% intspct.schema.obj
+\rSec2[intspct.schema.obj]{Introspection Object}
+
+\pnum
+The \emph{introspection object} is the root JSON object of the introspection
+JSON text.
+
+\pnum
+An \emph{introspection object} can have the following fields.
+
+% intspct.schema.schema
+\rSec2[intspct.schema.schema]{JSON Schema Field}
+
+\begin{itemdescr}
+
+	\pnum
+	\fldname
+	\verb|$schema|
+
+	\pnum
+	\fldtype
+	\verb|string|
+
+	\pnum
+	\fldval
+	The value shall be a reference to a JSON Schema specification.
+
+	\pnum
+	\flddesc
+	An \emph{introspection object} can contain this field.
+	If an \emph{introspection object} does not contain this field the value
+	shall be a reference to the JSON Schema corresponding to the current
+	edition of this standard.
+
+\end{itemdescr}
+
+% intspct.schema.cap
+\rSec2[intspct.schema.cap]{Capability Field}
+
+\begin{itemdescr}
+
+	\pnum
+	\fldname
+	\grammarterm{capability-identifier} \iref{intspct.cap}
+
+	\pnum
+	\fldtype
+	\verb|string| or \verb|array|
+
+	\pnum
+	\fldval (for \verb|string|)
+	The value shall be a \grammarterm{version-number} for \emph{minimum level}
+	functionality.
+	Or the value shall be a \grammarterm{version-range} for \emph{full level}
+	functionality.
+
+	\pnum
+	\fldval (for \verb|array|)
+	The value can be a JSON \verb|array| for \emph{full level} functionality.
+	If the value is a JSON \verb|array| the items in the \verb|array| shall be a
+	\grammarterm{version-number} or \grammarterm{version-range}.
+	
+	\pnum
+	\flddesc
+	An \emph{introspection object} can contain this field one or more times.
+	When the field appears more than one time the name of the fields shall be
+	unique within the \emph{introspection object}.
+  
+\end{itemdescr}
+
+% intspct.cap
 \rSec1[intspct.cap]{Capabilities}
 
+\pnum
+\begin{ncbnf}
+
+\nontermdef{capability-identifier}\br
+	name scope-designator name \opt{sub-capability-identifier}
+
+\nontermdef{sub-capability-identifier}\br
+	scope-designator name \opt{sub-capability-identifier}
+
+\nontermdef{name}\br
+	\descr{one or more of:}\br
+	\ucode{0061} .. \ucode{007A} \uname{LATIN SMALL LETTER A .. Z}\br
+	\ucode{005F} \uname{LOW LINE}
+
+\nontermdef{scope-designator}\br
+	\ucode{002E} \uname{FULL STOP}
+
+\end{ncbnf}
+
+\pnum
+A \grammarterm{capability-identifier} is composed of two or more
+\grammarterm{scope-designator} delimited \grammarterm{name} parts.
+
+\pnum
+The \grammarterm{name} \verb|std| in a \grammarterm{capability-identifier} is
+reserved for capabilities defined in this standard.
+
+\pnum
+Applications can specify vendor designated \grammarterm{name} parts defined
+outside of this standard.
+
+% intspct.vers
 \rSec1[intspct.vers]{Versions}
 
+\pnum
+A version shall be either a single version number \iref{intspct.vers.num} or a
+version range \iref{intspct.vers.range}.
+
+\pnum
+A single version number shall be equivalent to the inclusive version range
+spanning solely that single version number.
+
+\begin{note}
+That is, the version number \verb|i.j.k| is equivalent to version range
+\verb|[i.j.k,i.j.k]|.
+\end{note}
+
+% intspct.vers.num
+\rSec2[intspct.vers.num]{Version Number}
+
+\pnum
+A version number shall conform to the SemVer \verb|<version core>| syntax.
+
+\pnum
+A version number can be truncated to only \verb|<major>| or
+\verb|<major>.<minor>| syntax.
+
+\pnum
+A version number composed of only \verb|<major>| is equivalent to
+\verb|<major>.0.0|.
+
+\pnum
+A version number composed of only \verb|<major>.<minor>| is equivalent to
+\verb|<major>.<minor>.0|.
+
+\pnum
+Version numbers define a total ordering where version number \emph{a} is
+ordered before a version number \emph{b} when \emph{a} has a lower SemVer
+precedence than \emph{b}.
+
+% intspct.vers.range
+\rSec2[intspct.vers.range]{Version Range}
+
+\pnum
+\begin{ncbnf}
+
+\nontermdef{version-range}\br
+	version-range-min-bracket
+	version-min-number \opt{version-range-max-part}
+	version-range-max-bracket
+
+\nontermdef{version-range-max-part}\br
+	\ucode{002C} \uname{COMMA} version-max-number
+
+\nontermdef{version-min-number}\br
+	version-number
+
+\nontermdef{version-max-number}\br
+	version-number
+
+\nontermdef{version-range-min-bracket}\br
+	\descr{one of:}
+	\ucode{005B} \uname{LEFT SQUARE BRACKET}
+	\ucode{0028} \uname{LEFT PARENTHESIS}
+
+\nontermdef{version-range-max-bracket}\br
+	\descr{one of:}
+	\ucode{005D} \uname{RIGHT SQUARE BRACKET}
+	\ucode{0029} \uname{RIGHT PARENTHESIS}
+
+\end{ncbnf}
+
+\pnum
+A version range is composed of either one version number bracketed,
+or two version numbers separated by a \ucode{002C} \uname{COMMA} and bracketed.
+
+\begin{example}
+A version range with a single version number "\verb|[1.0.0]|".
+\end{example}
+
+\begin{example}
+A version range with a two version numbers "\verb|[1.0.0,2.0.0]|".
+\end{example}
+
+\pnum
+A version range \emph{a} that is \verb|[|\emph{i}\verb|,|\emph{j}\verb|]| makes
+\emph{i} and \emph{j} inclusive version range numbers, defining a Mathematics
+closed interval.
+
+\pnum
+A version range \emph{a} that is \verb|(|\emph{i}\verb|,|\emph{j}\verb|)| makes
+\emph{i} and \emph{j} exclusive version range numbers, defining a Mathematics
+open interval.
+
+\pnum
+A version range \emph{a} that is \verb|(|\emph{i}\verb|,|\emph{j}\verb|]| makes
+\emph{i} an exclusive version number and \emph{j} an inclusive version number,
+defining a Mathematics half-open interval.
+
+\pnum
+A version range \emph{a} that is \verb|[|\emph{i}\verb|,|\emph{j}\verb|)| makes
+\emph{j} an exclusive version number.
+
+\pnum
+A version range with a single inclusive version number \emph{x} is equivalent
+to the version range \verb|[|\emph{x}\verb|,|\emph{x}\verb|]|.
+
+\pnum
+A version range with a single exclusive version number \emph{x} is invalid.
+
+\pnum
+An exclusive version number \emph{x} does not include the version number
+\emph{x} when compared to another version number \emph{y}.
+
+\pnum
+A version range \emph{a} with version numbers \emph{i} and \emph{j} when
+compared to a version range \emph{b} with version number \emph{m} and \emph{n}
+will result in an empty version range when: \emph{j} < \emph{m} or
+\emph{n} < \emph{i}.
+
+\pnum
+Otherwise if \emph{i} or \emph{m} are inclusive version numbers and if \emph{j}
+or \emph{n} are inclusive version numbers the resulting range when \emph{a} is
+compare to \emph{b} is the inclusive version numbers "lesser of \emph{i} and
+\emph{m}" and "lesser of \emph{j} and \emph{n}".
+
+\pnum
+Otherwise if \emph{i} or \emph{m} are inclusive version numbers and if \emph{j}
+or \emph{n} are inclusive version numbers the resulting range when \emph{a} is
+compare to \emph{b} is the inclusive version number "lesser of \emph{i} and
+\emph{m}" and the exclusive version number "lesser of \emph{j} and \emph{n}".
+
+\pnum
+Otherwise if \emph{j} or \emph{n} are inclusive version numbers the resulting
+range when \emph{a} is compared to \emph{b} is the exclusive version number
+"lesser of \emph{i} and \emph{m}" and the inclusive version number "lesser of
+\emph{j} and \emph{n}".
+
+\pnum
+Otherwise the resulting range when \emph{a} is compared to \emph{b} is the
+exclusive version numbers "lesser of \emph{i} and \emph{m}" and "lesser of
+\emph{j} and \emph{n}".
+
+% intspct.min
 \rSec1[intspct.min]{Minimum Level}
 
+\pnum
+An application that supports the \emph{minimum level} functionality indicates
+it by specifying a single version \iref{intspct.vers.num} as the value of the
+\verb|std.info| capability \iref{intspct.cap}.
+
+\begin{example}
+\verb|{ "std.info": "1.0.0" }|
+\end{example}
+
+% intspct.full
 \rSec1[intspct.full]{Full Level}
 
+\pnum
+An application can support the \emph{full level} functionality as defined in
+this section. An application that reports supporting the \emph{full level}
+functionality shall support all of the functionality in this section.
+
+\pnum
+An application that supports the \emph{full level} functionality indicates it by
+specifying a version range \iref{intspct.vers.range} or an array of version
+range items as the value of the \verb|std.info| capability  \iref{intspct.cap}.
+
+\begin{example}
+\verb|{ "std.info": "[1.0.0]" }|
+\end{example}
+
+An application that responds with an array of version range items as the value
+of a capability field shall support the union of the range items indicated.
+
+% intspct.info
 \rSec1[intspct.info]{Introspection Information}
 
+\pnum
+An application shall output an introspection schema \iref{intspct.schema} that
+contains one capability field for each capability that the application supports
+when given the \verb|--std-info| option \iref{intspct.opt.info}.
+
+\pnum
+An application shall indicate the single version \iref{intspct.vers.num} or
+version range \iref{intspct.vers.range} of each capability it supports as the
+value of the capability field.
+
+% intspct.dcl
 \rSec1[intspct.dcl]{Introspection Declaration}
+
+\pnum
+An application that supports the \emph{full level} functionality when given one
+or more \grammarterm{std-info-opt} \grammarterm{declaration} options shall
+conform its functionality to the indicated edition of this standard in the given
+\grammarterm{declaration} \grammarterm{version-number} for the given capability.
+
+\begin{ncbnf}
+
+\nontermdef{declaration}\br
+	capability-identifier \ucode{003d} \uname{equals sign} version-number
+
+\end{ncbnf}
+
+\pnum
+An application, when not given a \grammarterm{std-info-opt}
+\grammarterm{declaration} option for a capability it supports, should conform
+its functionality to the most recent version of the standard it supports for
+that capability.
+
+\pnum
+An application, when given a capability declaration option and the given
+version is outside of the version range that the application supports, should
+indicate an error.
+
+% intspct.compat
+\rSec1[intspct.compat]{Compatability}
+
+\pnum
+
+An application shall indicate, per SemVer specification, that version \emph{n}
+of the interface it implements is \emph{backward compatible} with another
+version \emph{p} of the interface that another application implements when the
+\verb|<major>| number is the same in version \emph{n} and \emph{p} and version
+\emph{n} follows version \emph{p}.

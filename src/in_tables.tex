@@ -48,6 +48,7 @@
 % floattablebase without TableBase, used for lib2dtab2base
 \newenvironment{floattablebasex}[4]
 {
+ \protect\hypertarget{tab:#2}{}
  \begin{table}[#4]
  \caption{\label{tab:#2}#1 \quad [tab:#2]}
  \begin{center}
@@ -63,7 +64,7 @@
 
 % General Usage: TITLE is the title of the table, XREF is the
 % cross-reference for the table. LAYOUT is a sequence of column
-% type specifiers (e.g. cp{1.0}c), without '|' for the left edge
+% type specifiers (e.g., cp{1.0}c), without '|' for the left edge
 % or right edge.
 
 % usage: \begin{floattablebase}{TITLE}{XREF}{LAYOUT}{PLACEMENT}
@@ -196,6 +197,7 @@
 \newenvironment{LongTable}[3]
 {
  \newcommand{\continuedcaption}{\caption[]{#1 (continued)}}
+ \protect\hypertarget{tab:#2}{}
  \begin{TableBase}
  \begin{longtable}{|#3|}
  \caption{#1 \quad [tab:#2]}\label{tab:#2}
