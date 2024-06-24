@@ -1,0 +1,313 @@
+%!TEX root = ecosystem.tex
+
+% strctopt
+\rSec0[strctopt]{Structured Options}
+
+
+% strctopt.pre
+\rSec1[strctopt.pre]{Preamble}
+
+\pnum
+This clause describes options, output, and formats that control the behavior of
+applications through the specification of arguments and options from
+\emph{structured options}.
+
+\pnum
+This clause specifies the \verb|std.strctopt| capability \iref{intspct.cap}
+version \verb|1.0.0|.
+
+\pnum
+An application can implement this capability.
+
+\pnum
+An application that implements the \verb|std.strctopt| capability shall include
+the \verb|std.strctopt| field and version value in the introspection JSON text
+output \iref{intspct.schema.cap}.
+
+% strctopt.overview
+\rSec1[strctopt.overview]{Overview}
+
+\pnum
+\begin{outputblock}
+@\emph{application}@ [ @\grammarterm{std-strctopt-input-opt}@ [@\emph{file}@] ]
+\end{outputblock}
+
+\rSec1[strctopt.input]{Input Option}
+
+\pnum
+\grammarterm{std-strctopt-input-opt}
+\begin{indented}
+	The pathname of a file to read the \emph{structured options} from. The
+	option is specified as \verb@--std-opt=file@ or \verb@-std-opt:file@. If
+	\emph{file} is ‘\verb@-@’, the standard input shall be used.
+\end{indented}
+
+\rSec1[strctopt.file]{Files}
+
+\pnum
+An application shall read a valid JSON text file that conforms to the
+\emph{structured options} schema \iref{strctopt.schema}.
+
+\pnum
+An application shall interpret the information in the file as if the options
+and arguments in the file occur in the same position as the
+\grammarterm{std-strctopt-input-opt} argument of the list of arguments given to
+the application. Given either directly as part of the application command line
+or as part of the arguments field \iref{strctopt.schema.args}.
+
+\rSec1[strctopt.schema]{Schema}
+
+\pnum
+A \emph{structured options} JSON text file shall contain one \emph{structured
+options} JSON object \iref{strctopt.schema.obj}.
+
+\rSec2[strctopt.schema.obj]{Structured Options Object}
+
+\pnum
+The \emph{structured options} object is the root JSON object of the structured
+options JSON text.
+
+\pnum
+A \emph{structure options} object can have the following fields.
+
+\rSec2[strctopt.schema.schema]{JSON Schema Field}
+
+\begin{itemdescr}
+
+	\pnum \fldname \verb|$schema|
+
+	\pnum \fldtype \verb|string|
+
+	\pnum \fldval
+	The value shall be a reference to a JSON Schema specification.
+
+	\pnum \flddesc
+	A \emph{structure options} object can contain this field. If a
+	\emph{structure options} object does not contain this field the value shall
+	be a reference to the JSON Schema corresponding to the current edition of
+	this standard (strctoptjschm).
+
+\end{itemdescr}
+
+\rSec2[strctopt.schema.ver]{Version Field}
+
+\begin{itemdescr}
+
+	\pnum \fldname \verb|version|
+
+	\pnum \fldtype \verb|string|
+
+	\pnum \fldval
+	\verb|1| or \verb|1.0| or \verb|1.0.0|.
+
+	\pnum
+	\flddesc
+	The version field indicates the version of the \emph{structured options}
+	represented in the contents of the JSON text.
+
+\end{itemdescr}
+
+\rSec2[strctopt.schema.args]{Arguments Field}
+
+\begin{itemdescr}
+
+	\pnum \fldname \verb|arguments|
+
+	\pnum \fldtype \verb|array|
+
+	\pnum \fldval
+	The value shall be a JSON \verb|array|. The items in the \verb|array| shall
+	be of JSON \verb|string| types.
+
+	\pnum \flddesc
+	The arguments field specifies items to be interpreted directly as if they
+	occur in the command line of the program.
+
+\end{itemdescr}
+
+The application shall process the items as if they replace the
+\grammarterm{std-strctopt-input-opt} argument.
+
+\rSec2[strctopt.schema.opts]{Options Field}
+
+\begin{itemdescr}
+
+	\pnum \fldname \verb|options|
+
+	\pnum \fldtype \verb|array|
+
+	\pnum \fldval
+	The value shall be a JSON \verb|array|. The items in the \verb|array| shall
+	be of JSON \verb|string| or \verb|object| types.
+
+	\pnum \flditems
+	(for \verb|string|) The item shall be a single \emph{flag option}.
+
+	\pnum \flditems
+	(for \verb|array|) The item shall be a single \emph{structured option}.
+
+	\pnum \flddesc
+	A \emph{structured options} object can contain this field.
+
+\end{itemdescr}
+
+\rSec3[strctopt.schema.names]{Names}
+
+\pnum
+\begin{ncbnf}
+
+\nontermdef{name}\br
+	\descr{one or more of:}\br
+	\ucode{0061} .. \ucode{007A} \uname{LATIN SMALL LETTER A .. Z}\br
+	\ucode{0030} .. \ucode{0039} \uname{DIGIT ZERO .. NINE}\br
+	\ucode{005F} \uname{LOW LINE} \ucode{002D} \uname{HYPHEN-MINUS}
+
+\nontermdef{scope}\br
+	name \opt{scope-designator}
+
+\nontermdef{scope-designator}\br
+	\ucode{002E} \uname{FULL STOP}
+
+\end{ncbnf}
+
+\pnum
+The \grammarterm{name} \verb|std| is reserved for \emph{flag options} and
+\emph{structured options} defined in this standard.
+
+\pnum
+Applications can specify vendor designated \grammarterm{name} parts outside of
+this standard.
+
+\rSec2[strctopt.schema.flag]{Flag Option}
+
+\pnum
+\begin{ncbnf}
+
+\nontermdef{flag-option}\br
+	\descr{one of:} yes-flag no-flag
+
+\nontermdef{yes-flag}\br
+	\descr{one of:} yes-flag-name scoped-yes-flag-name
+
+\nontermdef{yes-flag-name}\br
+	name
+
+\nontermdef{scoped-yes-flag-name}\br
+	\opt{scope} name
+
+\nontermdef{no-flag}\br
+	\descr{one of:} no-flag-name scoped-no-flag-name
+
+\nontermdef{no-flag-name}\br
+	no-flag-prefix name
+
+\nontermdef{scoped-no-flag-name}\br
+	\opt{scope} no-flag-name
+
+\nontermdef{no-flag-prefix}\br
+	\ucode{006E} \uname{LATIN SMALL LETTER N}
+	\ucode{006F} \uname{LATIN SMALL LETTER O}
+	\ucode{002D} \uname{HYPHEN-MINUS}
+
+\end{ncbnf}
+
+\pnum
+A \emph{flag option} is an option that allows or prevents the specified
+semantics of the option.
+
+\pnum
+A \emph{flag option} shall be either a \grammarterm{yes-flag} or
+\grammarterm{no-flag}.
+
+\pnum
+A \grammarterm{yes-flag} allows the semantics in the application as specified
+by effects of that behavior.
+
+\pnum
+A \grammarterm{no-flag} prevents the semantics in the application as specified
+by effects of that behavior.
+
+\pnum
+A \emph{flag option} without a \grammarterm{scope} shall be equivalent the same
+\emph{flag option} with a \verb|std.| scope.
+
+\rSec2[strctopt.schema.struct]{Structured Option}
+
+\pnum
+A \emph{structured option} JSON object shall contain a
+\grammarterm{structured-option-name} field.
+
+\pnum
+A \emph{structured option} JSON object can contain additional fields as
+specified by the option specification.
+
+\begin{itemdescr}
+
+	\pnum \fldname \verb|name|
+
+	\pnum \fldtype \verb|string|
+
+	\pnum \fldval
+	A valid \grammarterm{structured-option-name}.
+
+	\pnum \flddesc
+	The name of the \emph{structured options}.
+
+\end{itemdescr}
+
+\pnum
+\begin{ncbnf}
+
+\nontermdef{structured-option-name}\br
+	\opt{scope} name
+
+\end{ncbnf}
+
+\pnum
+A \emph{structured option} without a \grammarterm{scope} shall be equivalent to
+the same \emph{structured option} with a \verb|std.| \grammarterm{scope}.
+
+\rSec2[strctopt.schema.opt.opt]{Option std.opt}
+
+\pnum
+The \verb|std.opt| option defines an option to refer to additional structured
+options \iref{strctopt} to process.
+
+\pnum
+An application shall implement this option.
+
+\pnum
+The \verb|std.opt| option shall have the following fields.
+
+\begin{itemdescr}
+
+	\pnum \fldname \verb|name|
+
+	\pnum \fldtype \verb|string|
+
+	\pnum \fldval \verb|std.opt|
+
+	\pnum \flddesc
+	The name of the option.
+
+\end{itemdescr}
+
+\begin{itemdescr}
+
+	\pnum \fldname \verb|files|
+
+	\pnum \fldtype \verb|string| or \verb|array|
+
+	\pnum \fldval (for \verb|string|)
+	A pathname to a file containing structured options \iref{strctopt}.
+
+	\pnum \fldval (for \verb|array|)
+	A list of pathname \verb|string| items to files containing structured
+	options \iref{strctopt}.
+
+	\pnum \flddesc
+	One or more references to files that include additional structured options
+	\iref{strctopt} that are processed as if they occur at the location of the
+	\verb|std.opt| option.
+
+\end{itemdescr}

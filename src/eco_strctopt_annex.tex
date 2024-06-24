@@ -1,0 +1,125 @@
+%!TEX root = ecosystem.tex
+
+\infannex{strctoptjschm}{Structured Options JSON Schema}
+
+\rSec1[strctoptjschm.general]{General}
+
+\pnum
+This Annex defines the structured options capability schema
+\iref{strctopt.schema} in terms of a \emph{JSON Schema}.
+A \emph{JSON Schema} refers to the IETF RFC draft
+"JSON Schema: A Media Type for Describing JSON Documents" as specified in
+\url{https://json-schema.org/draft/2020-12/json-schema-core.html}.
+
+\pnum
+This JSON Schema can be referenced as the \verb|$schema| field with URI value
+of \\
+\verb|"https://raw.githubusercontent.com/cplusplus/ecosystem-is/release/schema/std_opt-1.0.0.json"|.
+
+\rSec1[strctoptjschm.spec]{JSON Schema Specification}
+
+\begin{outputblock}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id":
+    "https://raw.githubusercontent.com/cplusplus/ecosystem-is/release/schema/std_opt-1.0.0.json",
+  "title": "Structured Options Version 1.0.0 JSON Schema",
+  "$defs": {
+    "Version": {
+      "type": "string",
+      "pattern": "^[0-9]+([.][0-9]+){0,2}$"
+    },
+    "Name": {
+      "type": "string",
+      "pattern": "^[a-z0-9_\\-.]*[a-z0-9_-]+$"
+    },
+    "StringOrArray": {
+      "type": [
+        "string",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description":
+        "JSON Schema URI for the version of the structured options format.",
+      "type": "string",
+      "format": "uri"
+    },
+    "version": {
+      "description": "The Structured Options format version.",
+      "type": "string",
+      "$ref": "#/$defs/Version"
+    },
+    "arguments": {
+      "description": "Application direct arguments.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "options": {
+      "description": "Application structured options.",
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$opts/Std.Opt"
+          },
+          {
+            "$ref": "#/$opts/Any"
+          }
+        ]
+      }
+    }
+  },
+  "$opts": {
+    "Std.Opt": {
+      "description":
+        "Recursive reference to one or more structured option files.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "enum": [
+            "std.opt",
+            "opt"
+          ]
+        },
+        "files": {
+          "$ref": "#/$defs/StringOrArray"
+        },
+        "required": [
+          "name",
+          "files"
+        ]
+      },
+      "additionalProperties": false
+    },
+    "Any": {
+      "description": "Any other structured option.",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "$ref": "#/$defs/Name"
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "additionalProperties": true
+        },
+        {
+          "$ref": "#/$defs/Name"
+        }
+      ]
+    }
+  }
+}
+\end{outputblock}
