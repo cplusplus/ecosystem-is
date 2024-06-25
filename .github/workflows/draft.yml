@@ -34,7 +34,9 @@ jobs:
           popd
 
       - name: Build (PDF)
-        run: b2 --debug-configuration -d+2 doc-stage=draft,final
+        run: |
+          b2 --debug-configuration -d+2 doc-stage=draft
+          b2 --debug-configuration -d+2 doc-stage=final
 
       - name: Upload
         uses: actions/upload-artifact@main
