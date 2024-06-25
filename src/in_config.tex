@@ -17,7 +17,11 @@
 \newcommand{\doctitlefr}{Norme pour L'écosystème \Cpp{}}
 
 %% Common bits
+\ifdefined\license
 \newcommand{\isocopyright}{\copyright\ ISO/IEC \relyear\ --- CC BY 4.0}
+\else
+\newcommand{\isocopyright}{\copyright\ ISO/IEC \relyear\ --- All rights reserved}
+\fi
 
 %% States
 \newcommand{\isodoctype}{Draft International Standard}

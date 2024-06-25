@@ -1,8 +1,9 @@
 import toolset ;
 import feature ;
 
-feature.feature doc-stage : draft final : propagated symmetric implicit ;
+feature.feature doc-stage : draft final : propagated symmetric ;
 feature.feature verbose : off on : propagated incidental ;
+feature.feature license : off on : propagated symmetric ;
 
 project /ecosystem
 	: build-dir .build/b2
@@ -12,21 +13,43 @@ local tex-src = [ glob src/eco_*.tex src/in_*.tex src/*.ist ] ;
 local latexmkrc = [ glob src/*latexmkrc* ] ;
 local _ = " " ;
 
+rule latex-defs ( properties * )
+{
+	local pretex ;
+	if <doc-stage>final in $(properties)
+	{
+		pretex += "\\\\def\\\\isofinal{yes}" ;
+	}
+	if <license>on in $(properties)
+	{
+		pretex += "\\\\def\\\\license{yes}" ;
+	}
+	return <flags>"-usepretex=\"$(pretex:J= )\"" ;
+}
+
 make ecosystem.pdf : src/ecosystem.tex
 	:	@latexmk
 	:	<dependency>$(tex-src)
 		<verbose>on:<flags>-verbose
 		<verbose>on:<flags>-diagnostics
 		<flags>-r$(_)"$(latexmkrc[1])"
-		"<doc-stage>final:<flags>-usepretex=\"\\\\def\\\\isofinal{yes}\""
+		<conditional>@latex-defs
 	;
 explicit ecosystem.pdf ;
+
+rule install-name ( properties * )
+{
+	local name = ecosystem-is ;
+	if <doc-stage>draft in $(properties) { name += draft ; }
+	if <doc-stage>final in $(properties) { name += final ; }
+	if <license>on in $(properties) { name += ccby4 ; }
+	return <name>$(name:J=-).pdf ;
+}
 
 install ecosystem-is
 	:	ecosystem.pdf
 	:	<location>.
-		<doc-stage>draft:<name>ecosystem-is-draft.pdf
-		<doc-stage>final:<name>ecosystem-is-final.pdf
+		<conditional>@install-name
 	;
 
 # Generic latexmk action.
