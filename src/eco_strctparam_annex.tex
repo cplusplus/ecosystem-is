@@ -22,8 +22,8 @@ of \\
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id":
-    "https://raw.githubusercontent.com/cplusplus/ecosystem-is/release/schema/std_opt-1.0.0.json",
-  "title": "Structured Options Version 1.0.0 JSON Schema",
+    "https://raw.githubusercontent.com/cplusplus/ecosystem-is/release/schema/std_param-1.0.0.json",
+  "title": "Structured Parameters Version 1.0.0 JSON Schema",
   "$defs": {
     "Version": {
       "type": "string",
@@ -47,12 +47,12 @@ of \\
   "properties": {
     "$schema": {
       "description":
-        "JSON Schema URI for the version of the structured options format.",
+        "JSON Schema URI for the version of the structured parameters format.",
       "type": "string",
       "format": "uri"
     },
     "version": {
-      "description": "The Structured Options format version.",
+      "description": "The Structured Parameters format version.",
       "type": "string",
       "$ref": "#/$defs/Version"
     },
@@ -69,7 +69,7 @@ of \\
       "items": {
         "oneOf": [
           {
-            "$ref": "#/$opts/Std.Opt"
+            "$ref": "#/$opts/Std.Param"
           },
           {
             "$ref": "#/$opts/Any"
@@ -78,16 +78,27 @@ of \\
       }
     }
   },
+  "oneOf": [
+    {
+      "required": [
+        "arguments"
+      ]
+    },
+    {
+      "required": [
+        "options"
+      ]
+    }
+  ],
   "$opts": {
-    "Std.Opt": {
-      "description":
-        "Recursive reference to one or more structured option files.",
+    "Std.Param": {
+      "description": "Recursive reference to one or more structured parameters files.",
       "type": "object",
       "properties": {
         "name": {
           "enum": [
-            "std.opt",
-            "opt"
+            "std.param",
+            "param"
           ]
         },
         "files": {
