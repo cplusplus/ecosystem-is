@@ -34,6 +34,8 @@ make ecosystem.pdf : src/ecosystem.tex
 		<verbose>on:<flags>-diagnostics
 		<flags>-r$(_)"$(latexmkrc[1])"
 		<conditional>@latex-defs
+		<relevant>doc-stage
+		<relevant>license
 	;
 explicit ecosystem.pdf ;
 
