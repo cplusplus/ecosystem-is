@@ -1,24 +1,3 @@
-%!TEX root = ecosystem.tex
-
-\infannex{strctparamjschm}{Structured Parameters JSON Schema}
-
-\rSec1[strctparamjschm.general]{General}
-
-\pnum
-This Annex defines the structured parameters capability schema
-\iref{strctparam.schema} in terms of a \emph{JSON Schema}.
-A \emph{JSON Schema} refers to the IETF RFC draft
-"JSON Schema: A Media Type for Describing JSON Documents" as specified in
-\url{https://json-schema.org/draft/2020-12/json-schema-core.html}.
-
-\pnum
-This JSON Schema can be referenced as the \verb|$schema| field with URI value
-of \\
-\verb|"https://raw.githubusercontent.com/cplusplus/ecosystem-is/release/schema/std_opt-1.0.0.json"|.
-
-\rSec1[strctparamjschm.spec]{JSON Schema Specification}
-
-\begin{outputblock}
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://isocpp.org/release/schema/std_param-1.0.0.json",
@@ -26,8 +5,7 @@ of \\
   "type": "object",
   "properties": {
     "$schema": {
-      "description":
-        "JSON Schema URI for the version of the structured parameters format.",
+      "description": "JSON Schema URI for the version of the structured parameters format.",
       "type": "string",
       "format": "uri"
     },
@@ -91,8 +69,7 @@ of \\
     "Std.Param": {
       "properties": {
         "std.param": {
-          "description":
-            "Recursive reference to one or more structured parameters files.",
+          "description": "Recursive reference to one or more structured parameters files.",
           "type": "object",
           "properties": {
             "pre": {
@@ -111,4 +88,3 @@ of \\
     }
   }
 }
-\end{outputblock}
