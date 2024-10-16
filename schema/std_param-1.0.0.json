@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://isocpp.org/release/schema/std_param-1.0.0.json",
+  "title": "Structured Parameters Version 1.0.0 JSON Schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "JSON Schema URI for the version of the structured parameters format.",
+      "type": "string",
+      "format": "uri"
+    },
+    "version": {
+      "description": "The Structured Parameters format version.",
+      "type": "string",
+      "$ref": "#/$defs/Version"
+    },
+    "arguments": {
+      "description": "Application direct arguments.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "options": {
+      "description": "Application structured options.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$opt/Std.Param"
+        }
+      ],
+      "propertyName": {
+        "$ref": "#/$defs/Name"
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "arguments"
+      ]
+    },
+    {
+      "required": [
+        "options"
+      ]
+    }
+  ],
+  "$defs": {
+    "Version": {
+      "type": "string",
+      "pattern": "^[0-9]+([.][0-9]+){0,2}$"
+    },
+    "Name": {
+      "type": "string",
+      "pattern": "^([a-z0-9_-]+[.])*([a-z0-9_-]+)$"
+    },
+    "StringOrArray": {
+      "type": [
+        "string",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$opt": {
+    "Std.Param": {
+      "properties": {
+        "std.param": {
+          "description": "Recursive reference to one or more structured parameters files.",
+          "type": "object",
+          "properties": {
+            "pre": {
+              "$ref": "#/$defs/StringOrArray"
+            },
+            "post": {
+              "$ref": "#/$defs/StringOrArray"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "param": {
+        "$ref": "#/$opt/Std.Param/properties/std.param"
+      }
+    }
+  }
+}
