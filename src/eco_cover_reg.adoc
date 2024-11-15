@@ -1,7 +1,9 @@
-%!TEX root = ecosystem.tex
+include::in_vars.adoc[]
+:copyright!:
+:license!:
 
-% Generated file. Do not edit.
-
+ifeval::["{backend}" == "latexcore"]
+++++
 %%--------------------------------------------------
 %% Title page
 
@@ -73,7 +75,7 @@ Document Language: E\\
 % \textbf{COPYRIGHT PROTECTED DOCUMENT}
 % \end{center}
 % \vspace{2ex}
-%
+% 
 \copyright\ ISO/IEC \relyear\\
 
 \ifdefined\license
@@ -95,3 +97,66 @@ Published in Switzerland
 \end{minipage}}
 
 \newpage
+++++
+endif::[]
+
+ifeval::["{backend}" == "html5"]
+
+[[coverident]]
+[.text-right]
+ISO/IEC JTC1 SC22 WG21 [.large]#**{docno}**# +
+{isodocno} +
+Date: {revdate} +
+ISO/IEC DIS {disno} +
+ISO/IEC JTC1 SC22 +
+Secretariat: ANSI
+
+[[covertitle]]
+[.title]#**{doctitleen}**# +
+{doctitlefr}
+
+.WARNING
+****
+This document is not an ISO International Standard. It is distributed for
+review and comment. It is subject to change without notice and may not be
+referred to as an International Standard.
+
+Recipients of this draft are invited to submit, with their comments,
+notification of any relevant patent rights of which they are aware and to
+provide supporting documentation.
+****
+
+Document reference number: {isodocno} +
+Document type: {isodoctype} +
+Document stage: {isodocstage} +
+Document Language: E
+
+ifeval::["{doclicense}" == "on"]
+{isocopyright_lic_on}
+endif::[]
+ifeval::["{doclicense}" == "off"]
+{isocopyright_lic_off}
+endif::[]
+
+<<<
+
+****
+© ISO/IEC {docyear}
+
+ifeval::["{doclicense}" == "on"]
+Except where otherwise noted, content is licensed under a Creative Commons
+Attribution 4.0 International license (CC BY 4.0).
+endif::[]
+
+[.indented]
+ISO copyright office +
+CP 401 • Ch. de Blandonnet 8 +
+CH-1214 Vernier, Geneva, Switzerland +
+Phone: + 41 22 749 01 11 +
+Email: copyright@iso.org +
+Website: https://www.iso.org[www.iso.org]
+
+Published in Switzerland
+****
+
+endif::[]

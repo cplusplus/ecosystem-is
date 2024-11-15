@@ -1,0 +1,21 @@
+include::in_vars.adoc[]
+[.text-justify]
+[[strctparamcore,([strctparamcore])]]
+= Structured Parameters Core Options [.right]#<<strctparamcore,[strctparamcore]>>#
+:copyright: Copyright {docyear} René Ferdinand Rivera Morell
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+[[strctparamcore.pre,([strctparamcore.pre])]]
+== Preamble [.right]#<<strctparamcore.pre,[strctparamcore.pre]>>#
+
+This clause describes the schema and semantics of core _structured options_
+<<strctparam.schema.opts>> for {CPP} compiler front-ends.
+
+This clause specifies the `std.strctparam.core` capability 
+<<intspct.cap>> version `1.0.0`.
+
+An application can implement this capability.
+
+An application that implements the `std.strctparam.core` capability shall
+include the `std.strctparam.core` field and version value in the 
+introspection JSON text output <<intspct.schema.cap>>.

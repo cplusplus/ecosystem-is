@@ -1,0 +1,9 @@
+include::in_vars.adoc[]
+:copyright: Copyright {docyear} René Ferdinand Rivera Morell
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+:texbare:
+
+[%nonum]
+The main changes are as follows:
+
+* Initial release.

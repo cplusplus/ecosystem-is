@@ -59,8 +59,8 @@
 \input{in_macros}
 \input{in_tables}
 
+% Declare the general index (the only one we have)
 \makeindex[name=generalindex,title=Index,options=-s eco_generalindex.ist]
-\makeindex[name=grammarindex,title=Index of grammar productions,options=-s eco_grammarindex.ist]
 \makeglossary[xrefindex]
 \makeglossary[xrefdelta]
 
@@ -91,7 +91,35 @@
 %%--------------------------------------------------
 %% front matter
 \frontmatter
-\input{eco_front}
+
+% Cover
+\ifdefined\isofinal
+\input{eco_cover_reg}
+\else
+\input{eco_cover_wd}
+\fi
+
+% The table of contents
+\markboth{\contentsname}{}
+% Make a bit more room for ToC page numbers.
+\makeatletter
+\renewcommand\@pnumwidth{2.5em}
+\makeatother
+% Include table of contents. Do not list "Contents"
+% within it (per ISO request) but do include a
+% bookmark for it in the PDF.
+\phantomsection
+\pdfbookmark{\contentsname}{toctarget}
+\hypertarget{toctarget}{\tableofcontents*}
+% ToC levels?
+\setcounter{tocdepth}{5}
+
+% Foreword
+\input{eco_preface}
+\input{eco_preface_changes.tex}
+\ifdefined\license
+\input{eco_license}
+\fi
 
 %%--------------------------------------------------
 %% main body of the document
@@ -100,9 +128,6 @@
 
 %%--------------------------------------------------
 %% chapters
-\ifdefined\license
-\input{eco_license}
-\fi
 \input{eco_scope}
 \input{eco_refs}
 \input{eco_conformance}
@@ -128,7 +153,9 @@
 %%--------------------------------------------------
 %% back matter
 \backmatter
-\input{eco_back}
+\input{eco_back_biblio}
+\input{eco_back_xref}
+\input{eco_back_index}
 
 %%--------------------------------------------------
 %% End of document

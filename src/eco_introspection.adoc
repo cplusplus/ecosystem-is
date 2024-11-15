@@ -1,0 +1,385 @@
+include::in_vars.adoc[]
+[.text-justify]
+[[intspct,([intspct])]]
+= Introspection [.right]#<<intspct,[intspct]>>#
+:copyright: Copyright {docyear} René Ferdinand Rivera Morell
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+[[intspct.pre,([intspct.pre])]]
+== Preamble [.right]#<<intspct.pre,[intspct.pre]>>#
+
+This clause describes options, output, and formats that describe what
+capabilities of this standard an application supports. An application shall
+support the _minimum level_ functionality <<intspct.min>>. An
+application can support the _full level_ functionality <<intspct.full>>.
+
+This clause specifies the ``std.info`` capability <<intspct.cap>>.
+
+[[intspct.overview,([intspct.overview])]]
+== Overview [.right]#<<intspct.overview,[intspct.overview]>>#
+
+[subs="normal"]
+....
+_application_ +[+ [.grammarterm]##std-info-opt## +[+ [.grammarterm]#declaration# +]+ +]+ +[+ [.grammarterm]#std-info-out-opt# _file_ +]+
+....
+
+[[intspct.options,([intspct.options])]]
+== Options [.right]#<<intspct.options,[intspct.options]>>#
+
+Applications shall accept one of two options syntax variations:
+``--name=value`` (``--name`` without a value) or
+``-name:value`` (``-name`` without a value).
+
+Applications shall indicate an error if invoked with an option syntax variation
+that it does not support.
+
+NOTE: An application will report the error in what is conventional for the
+	platform it runs in. On POSIX and Windows it would return an error code,
+	and optionally output to the error stream.
+
+NOTE: It is up to a program that interacts with an application implementing
+	introspection to determine what option syntax variation the application
+	supports. One method to accomplish that is to execute the application with
+	one of the two syntax styles and use the error indication to conclude which
+	syntax works. Another is to have a priori knowledge of which syntax
+	variation works.
+
+[[intspct.opt.info,([intspct.opt.info])]]
+=== Information Option [.right]#<<intspct.opt.info,[intspct.opt.info]>>#
+
+This option shall be supported.
+
+[.grammarterm]##std-info-opt##
+
+[.indented]
+--
+Outputs the version information of the capabilities supported by the
+application.
+The option is specified as `--std-info` or `-std-info`.
+The option can be specified zero or one time.
+The application shall support the option for _minimum level_
+<<intspct.min>> functionality.
+--
+
+[[intspct.opt.out,([intspct.opt.out])]]
+=== Information Output Option [.right]#<<intspct.opt.out,[intspct.opt.out]>>#
+
+This option shall be supported.
+
+[.grammarterm]##std-info-out-opt## _file_
+
+[.indented]
+--
+The pathname of a file to output the information to.
+The option is specified as ``--std-info-out=file`` or
+``-std-info-out:file``.
+If _file_ is ‘`-`’, the standard output shall be used.
+The application shall support the option for _minimum level_
+<<intspct.min>> functionality.
+Not specifying this option while specifying the
+[.grammarterm]##std-info-opt## option <<intspct.opt.info>> shall be
+equivalent to also specifying a [.grammarterm]##std-info-out-opt##
+[.grammarterm]##file## option where _file_ is ‘`-`’.
+--
+
+[[intspct.opt.decl,([intspct.opt.decl])]]
+=== Declaration Option [.right]#<<intspct.opt.decl,[intspct.opt.decl]>>#
+
+This option should be supported.
+
+[.grammarterm]##std-info-opt## _declaration_
+[.indented]
+--
+Declares the required capability version of the application.
+The option is specified as ``--std-info=``_declaration_ or
+``-std-info:``_declaration_.
+The option can be specified any number of times.
+The application shall support the option for _full level_
+<<intspct.full>> functionality.
+--
+
+[[intspct.output,([intspct.output])]]
+== Output [.right]#<<intspct.output,[intspct.output]>>#
+
+An application shall output a valid JSON text file that conforms to the
+introspection schema <<intspct.schema>> to the file specified
+in the options <<intspct.opt.out>>.
+
+[[intspct.file,([intspct.file])]]
+== Files [.right]#<<intspct.file,[intspct.file]>>#
+
+An application can provide an _introspection file_ that contains valid
+JSON that conforms to the introspection schema
+<<intspct.schema>>.
+
+An _introspection file_ shall contain the same information as that produced
+from the [.grammarterm]##std-info-opt## information option
+<<intspct.opt.info>>.
+
+An _introspection file_ shall be named the same as the application with
+any filename extension replaced with the ``stdinfo`` filename extension. It
+is implementation defined how the filename of the introspection file replaces
+the application filename extension with the new ``stdinfo`` filename
+extension.
+
+NOTE: For Windows, POSIX, and other platforms replacing the filename extension
+	would remove any filename bytes after the last period
+	([.ucode]#002E# [.uname]#FULL STOP#) and append the ``stdinfo`` sequence of
+	bytes.
+
+An _introspection file_ shall either have the same parent directory as
+the application, have an implementation defined parent directory that is
+relative to the parent directory of the application, or have an implementation
+defined parent directory.
+
+[[intspct.schema,([intspct.schema])]]
+== Schema [.right]#<<intspct.schema,[intspct.schema]>>#
+
+An introspection JSON text file shall contain one introspection JSON object
+<<intspct.schema.obj>>.
+
+[[intspct.schema.obj,([intspct.schema.obj])]]
+=== Introspection Object [.right]#<<intspct.schema.obj,[intspct.schema.obj]>>#
+
+The _introspection object_ is the root JSON object of the introspection
+JSON text.
+
+An _introspection object_ can have the following fields.
+
+[[intspct.schema.schema,([intspct.schema.schema])]]
+=== JSON Schema Field [.right]#<<intspct.schema.schema,[intspct.schema.schema]>>#
+
+[.itemdescr]
+[.fldname]#_Name_:# ``$schema`` +
+[.fldtype]#_Type_:# `string` +
+[.fldval]#_Value_:#
+	The value shall be a reference to a JSON Schema specification. +
+[.flddesc]#_Description_:#
+	An _introspection object_ can contain this field.
+	If an _introspection object_ does not contain this field the value
+	shall be a reference to the JSON Schema corresponding to the current
+	edition of this standard.
+
+[[intspct.schema.cap,([intspct.schema.cap])]]
+=== Capability Field [.right]#<<intspct.schema.cap,[intspct.schema.cap]>>#
+
+[.itemdescr]
+[.fldname]#_Name_:#
+	[.grammarterm]##capability-identifier## <<intspct.cap>> +
+[.fldtype]#_Type_:# 
+	``string`` or ``array`` +
+[.fldval]#_Value_:# (for ``string``)
+	The value shall be a [.grammarterm]##version-number## for _minimum level_
+	functionality.
+	Or the value shall be a [.grammarterm]##version-range## for _full level_
+	functionality. +
+[.fldval]#_Value_:# (for ``array``)
+	The value can be a JSON ``array`` for _full level_ functionality.
+	If the value is a JSON ``array`` the items in the ``array`` shall be a
+	[.grammarterm]##version-number## or [.grammarterm]##version-range##. +
+[.flddesc]#_Description_:#
+	An _introspection object_ can contain this field one or more times.
+	When the field appears more than one time the name of the fields shall be
+	unique within the _introspection object_.
+
+[[intspct.cap,([intspct.cap])]]
+== Capabilities [.right]#<<intspct.cap,[intspct.cap]>>#
+
+[.bnf]
+capability-identifier::
+	name scope-designator name [.opt]#sub-capability-identifier#
+sub-capability-identifier::
+	scope-designator name [.opt]#sub-capability-identifier#
+name::
+	[.descr]#one or more of:# +
+	[.ucode]#0061# .. [.ucode]#007A# [.uname]#LATIN SMALL LETTER A .. Z# +
+	[.ucode]#005F# [.uname]#LOW LINE#
+scope-designator::
+	[.ucode]#002E# [.uname]#FULL STOP#
+
+A [.grammarterm]##capability-identifier## is composed of two or more
+[.grammarterm]##scope-designator## delimited [.grammarterm]##name## parts.
+
+The [.grammarterm]##name## ``std`` in a [.grammarterm]##capability-identifier## is
+reserved for capabilities defined in this standard.
+
+Applications can specify vendor designated [.grammarterm]##name## parts defined
+outside of this standard.
+
+[[intspct.vers,([intspct.vers])]]
+== Versions [.right]#<<intspct.vers,[intspct.vers]>>#
+
+A version shall be either a single version number <<intspct.vers.num>> or a
+version range <<intspct.vers.range>>.
+
+A single version number shall be equivalent to the inclusive version range
+spanning solely that single version number.
+
+NOTE: That is, the version number ``i.j.k`` is equivalent to version range
+``[i.j.k,i.j.k]``.
+
+[[intspct.vers.num,([intspct.vers.num])]]
+=== Version Number [.right]#<<intspct.vers.num,[intspct.vers.num]>>#
+
+A version number shall conform to the SemVer ``<version core>`` syntax.
+
+A version number can be truncated to only ``<major>`` or
+``<major>.<minor>`` syntax.
+
+A version number composed of only ``<major>`` is equivalent to
+``<major>.0.0``.
+
+A version number composed of only ``<major>.<minor>`` is equivalent to
+``<major>.<minor>.0``.
+
+Version numbers define a total ordering where version number _a_ is
+ordered before a version number _b_ when _a_ has a lower SemVer
+precedence than _b_.
+
+[[intspct.vers.range,([intspct.vers.range])]]
+=== Version Range [.right]#<<intspct.vers.range,[intspct.vers.range]>>#
+
+[.bnf]
+version-range::
+	version-range-min-bracket +
+	version-min-number [.opt]#version-range-max-part# +
+	version-range-max-bracket
+version-range-max-part::
+	[.ucode]#002C# [.uname]#COMMA# version-max-number
+version-min-number::
+	version-number
+version-max-number::
+	version-number
+version-range-min-bracket::
+	[.descr]#one of:#
+	[.ucode]#005B# [.uname]#LEFT SQUARE BRACKET#
+	[.ucode]#0028# [.uname]#LEFT PARENTHESIS#
+version-range-max-bracket::
+	[.descr]#one of:#
+	[.ucode]#005D# [.uname]#RIGHT SQUARE BRACKET#
+	[.ucode]#0029# [.uname]#RIGHT PARENTHESIS#
+
+A version range is composed of either one version number bracketed,
+or two version numbers separated by a [.ucode]#002C# [.uname]#COMMA# and bracketed.
+
+[example]
+A version range with a single version number "```[1.0.0]```".
+
+[example]
+A version range with a two version numbers "```[1.0.0,2.0.0]```".
+
+A version range _a_ that is ``[``_i_``,``_j_``]`` makes
+_i_ and _j_ inclusive version range numbers, defining a Mathematics
+closed interval.
+
+A version range _a_ that is ``(``_i_``,``_j_``)`` makes
+_i_ and _j_ exclusive version range numbers, defining a Mathematics
+open interval.
+
+A version range _a_ that is ``(``_i_``,``_j_``]`` makes
+_i_ an exclusive version number and _j_ an inclusive version number,
+defining a Mathematics half-open interval.
+
+A version range _a_ that is ``[``_i_``,``_j_``)`` makes
+_j_ an exclusive version number.
+
+A version range with a single inclusive version number _x_ is equivalent
+to the version range ``[``_x_``,``_x_``]``.
+
+A version range with a single exclusive version number _x_ is invalid.
+
+An exclusive version number _x_ does not include the version number
+_x_ when compared to another version number _y_.
+
+A version range _a_ with version numbers _i_ and _j_ when
+compared to a version range _b_ with version number _m_ and _n_
+will result in an empty version range when: _j_ < _m_ or
+_n_ < _i_.
+
+Otherwise if _i_ or _m_ are inclusive version numbers and if _j_
+or _n_ are inclusive version numbers the resulting range when _a_ is
+compare to _b_ is the inclusive version numbers "`lesser of _i_ and
+_m_`" and "`lesser of _j_ and _n_`".
+
+Otherwise if _i_ or _m_ are inclusive version numbers and if _j_
+or _n_ are inclusive version numbers the resulting range when _a_ is
+compare to _b_ is the inclusive version number "`lesser of _i_ and
+_m_`" and the exclusive version number "`lesser of _j_ and _n_`".
+
+Otherwise if _j_ or _n_ are inclusive version numbers the resulting
+range when _a_ is compared to _b_ is the exclusive version number
+"`lesser of _i_ and _m_`" and the inclusive version number "`lesser of
+_j_ and _n_`".
+
+Otherwise the resulting range when _a_ is compared to _b_ is the
+exclusive version numbers "`lesser of _i_ and _m_`" and "`lesser of
+_j_ and _n_`".
+
+[[intspct.min,([intspct.min])]]
+== Minimum Level [.right]#<<intspct.min,[intspct.min]>>#
+
+An application that supports the _minimum level_ functionality indicates
+it by specifying a single version <<intspct.vers.num>> as the value of the
+``std.info`` capability <<intspct.cap>>.
+
+[example]
+``{ "std.info": "1.0.0" }``
+
+[[intspct.full,([intspct.full])]]
+== Full Level [.right]#<<intspct.full,[intspct.full]>>#
+
+An application can support the _full level_ functionality as defined in
+this section. An application that reports supporting the _full level_
+functionality shall support all of the functionality in this section.
+
+An application that supports the _full level_ functionality indicates it by
+specifying a version range <<intspct.vers.range>> or an array of version
+range items as the value of the ``std.info`` capability  <<intspct.cap>>.
+
+[example]
+``{ "std.info": "[1.0.0]" }``
+
+An application that responds with an array of version range items as the value
+of a capability field shall support the union of the range items indicated.
+
+[[intspct.info,([intspct.info])]]
+== Introspection Information [.right]#<<intspct.info,[intspct.info]>>#
+
+An application shall output an introspection schema <<intspct.schema>> that
+contains one capability field for each capability that the application supports
+when given the ``--std-info`` option <<intspct.opt.info>>.
+
+An application shall indicate the single version <<intspct.vers.num>> or
+version range <<intspct.vers.range>> of each capability it supports as the
+value of the capability field.
+
+[[intspct.dcl,([intspct.dcl])]]
+== Introspection Declaration [.right]#<<intspct.dcl,[intspct.dcl]>>#
+
+An application that supports the _full level_ functionality when given one
+or more [.grammarterm]##std-info-opt## [.grammarterm]##declaration## options shall
+conform its functionality to the indicated edition of this standard in the given
+[.grammarterm]##declaration## [.grammarterm]##version-number## for the given capability.
+
+[.bnf]
+declaration::
+	capability-identifier [.ucode]#003d# [.uname]#equals sign# version-number
+
+An application, when not given a [.grammarterm]##std-info-opt##
+[.grammarterm]##declaration## option for a capability it supports, should conform
+its functionality to the most recent version of the standard it supports for
+that capability.
+
+An application, when given a capability declaration option and the given
+version is outside of the version range that the application supports, should
+indicate an error.
+
+[[intspct.compat,([intspct.compat])]]
+== Compatability [.right]#<<intspct.compat,[intspct.compat]>>#
+
+
+An application shall indicate, per SemVer specification, that version _n_
+of the interface it implements is _backward compatible_ with another
+version _p_ of the interface that another application implements when the
+``<major>`` number is the same in version _n_ and _p_ and version
+_n_ follows version _p_.

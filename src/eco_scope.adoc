@@ -1,0 +1,16 @@
+include::in_vars.adoc[]
+[.text-justify]
+[[intro.scope,([intro.scope])]]
+= Scope [.right]#<<intro.scope,[intro.scope]>>#
+:copyright: Copyright {docyear} René Ferdinand Rivera Morell
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+(((scope)))
+This document specifies formats, processes, definitions, and so on, that
+facilitates the interoperation of the tools and systems that implement, and
+interface with, the [.Cpp]#{CPP}# programming language.
+
+(((C++)))
+[.Cpp]#{CPP}# is a general purpose programming language described in ISO/IEC 14882:2020
+[.doccite]#Programming languages --- {CPP}# (hereinafter referred to as the
+{CPP} standard).

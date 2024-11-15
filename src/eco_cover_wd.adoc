@@ -1,0 +1,55 @@
+include::in_vars.adoc[]
+
+ifeval::["{backend}" == "latexcore"]
+[subs=macros]
+++++
+%%--------------------------------------------------
+%% Title page
+
+
+\thispagestyle{empty}
+\begingroup
+\def\hd{
+\begin{tabular}{ll}
+  \textbf{ISO Document:}    & {\larger{pass:n[{isodocno}]}} \\
+  \textbf{Document Number:} & {\larger{pass:n[{docno}]}} \\
+  \textbf{Date:}            & {pass:n[{revdate}]} \\
+  \textbf{Revises:}         & {pass:n[{prevdocno}]} \\
+  \textbf{Reply to:}        & {pass:n[{author}]} \\
+                            & {pass:n[{email}]}
+\end{tabular}
+}
+\newlength{\hdwidth}
+\settowidth{\hdwidth}{\hd}
+\hfill\begin{minipage}{\hdwidth}\hd\end{minipage}
+\endgroup
+
+\vspace{2.5cm}
+\begin{center}
+\textbf{\Huge
+Working Draft, \doctitleen}
+\end{center}
+\vfill
+\textbf{Note: this is an early draft. It's known to be incomplet and
+  incorrekt, and it has lots of
+  b\kern-1.2pta\kern1ptd\hspace{1.5em}for\kern-3ptmat\kern0.6ptti\raise0.15ex\hbox{n}g.}
+\newpage
+++++
+endif::[]
+
+ifeval::["{backend}" == "html5"]
+
+[horizontal]
+ISO Document: :: {isodocno}
+Document Number: :: {docno}
+Date: :: {revdate}
+Revises: :: {prevdocno}
+Reply-to: :: {author} {email}
+
+[[covertitle]]
+[.text-center]
+[.title]#**{doctitle}**#
+
+<<<
+
+endif::[]

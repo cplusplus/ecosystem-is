@@ -1,0 +1,36 @@
+ifndef::in_vars[]
+:in_vars:
+:author: ISO C++ Tooling Study Group
+:email: sg15@lists.isocpp.org
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+:authors: René Ferdinand Rivera Morell
+:copyright: Copyright {docyear} {authors}
+:docno: D3342R1
+:disno: -----
+:isodocno: ISO/IEC {disno}:{docyear}(E)
+:revdate: {docdate}
+:prevdocno:
+:doctitleen: Standard for C++ Ecosystem
+:doctitlefr: Norme pour L'écosystème C++
+:isodoctype: Draft International Standard
+:isodocstage00: (00) Preliminary
+:isodocstage10: (10) Proposal
+:isodocstage20: (20) Preparatory
+:isodocstage30: (30) Committee
+:isodocstage40: (40) Enquiry
+:isodocstage50: (50) Approval
+:isodocstage60: (60) Publication
+:isodocstage: {isodocstage00}
+:isocopyright_lic_on: © ISO/IEC {docyear} --- CC BY 4.0
+:isocopyright_lic_off: © ISO/IEC {docyear} --- All rights reserved
+:doctype: book
+:tex-source-highlighter: listings
+:texroot: ecosystem.tex
+:texindex: generalindex
+ifeval::["{docstage}" == "draft"]
+:doctitle: Working Draft, {doctitleen}
+endif::[]
+ifeval::["{docstage}" == "final"]
+:doctitle: {doctitleen}
+endif::[]
+endif::[]

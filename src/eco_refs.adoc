@@ -1,0 +1,31 @@
+include::in_vars.adoc[]
+[.text-justify]
+[[intro.refs,([intro.refs])]]
+= Normative references [.right]#<<intro.refs,[intro.refs]>>#
+:copyright: Copyright {docyear} René Ferdinand Rivera Morell
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+(((normative references,references,normative)))
+The following documents are referred to in the text in such a way that some or
+all of their content constitutes requirements of this document. For dated
+references, only the edition cited applies. For undated references, the latest
+edition of the referenced document (including any amendments) applies.
+
+// Groups, in order:
+// . ISO documents in numerical order.
+// . Other international standards.
+// . Literature references.
+
+[%description]
+Vocabulary::
+	ISO/IEC 2382, _Information technology --- Vocabulary_
+POSIX::
+	ISO/IEC 9945:2009, _Information technology --- Portable Operating System Interface (POSIX®) Base Specifications, Issue 7_
+{CPP}::
+	ISO/IEC 14882:2020, _Programming languages --- {CPP}_
+JSON::
+	ISO/IEC 21778:2017, _Information technology --- The JSON data interchange syntax_
+Mathematics::
+	ISO 80000-2:2019, _Quantities and units --- Part 2: Mathematics_
+SemVer::
+	The SemVer Team. _Semantic Versioning 2.0.0_. June 18 2013. Available at: https://semver.org/spec/v2.0.0.html

@@ -1,0 +1,34 @@
+include::in_vars.adoc[]
+[.ignore]
+[[intsjschm.annex,([intsjschm.annex])]]
+= Annex A [.right]#<<intsjschm.annex,[intsjschm.annex]>>#
+:copyright: Copyright {docyear} René Ferdinand Rivera Morell
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+:leveldedent: 1
+
+[.infannex]
+[.text-justify]
+[[intsjschm,([intsjschm])]]
+== Tool Introspection JSON Schema [.right]#<<intsjschm,[intsjschm]>>#
+
+
+[[intsjschm.general,([intsjschm.general])]]
+=== General [.right]#<<intsjschm.general,[intsjschm.general]>>#
+
+This Annex defines the introspection capability schema
+<<intspct.schema>> in terms of a _JSON Schema_
+<<jsonschema>>.
+
+This JSON Schema can be referenced as the `$schema` field with URI value
+of `"std_info-1.0.0.json"`.
+
+[[intsjschm.spec,([intsjschm.spec])]]
+=== JSON Schema Specification [.right]#<<intsjschm.spec,[intsjschm.spec]>>#
+
+[source,json]
+----
+include::../schema/std_info-1.0.0.json[]
+----
+
+:leveldedent: 0

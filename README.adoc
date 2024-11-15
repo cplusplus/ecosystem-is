@@ -16,6 +16,17 @@ involved in the development you can:
 
 == Getting Started
 
+=== Asciidoctor
+
+You'll need the latest https://asciidoctor.org/[Asciidoctor] version 2. Consult
+their https://asciidoctor.org/#installation[installation] instructions for ways
+to obtain it.
+
+=== B2
+
+The https://www.bfgroup.xyz/b2/[B2] build system is needed to manage the
+translation steps from the Asciidoctor sources, to LaTex+PDF and to HTML.
+
 === LaTeX
 
 You'll need a sufficiently recent and capable LaTeX distribution installed and
@@ -69,22 +80,3 @@ you have the appropriate LaTeX tools installed and accessible vscode will
 automatically build a PDF you can preview in vscode and edit `tex` files
 semi-live. The resulting built files and PDF are placed in the
 `${workspaceFolder}/.build/vscode` directory.
-
-=== B2
-
-You can use the https://www.bfgroup.xyz/b2/[B2 build system] which has more
-ways to build the documents. Obviously you'll need to install LaTeX as above.
-And of course also install B2, if you don't already have it. Then you can just
-do: `b2` at the root to produce the default draft PDF.
-
-=== Manual
-
-It's also possible to directly build the PDF doc from the command line:
-
-[source,shell]
-----
-cd src
-latexmk -pdf ecosystem.tex
-----
-
-Which will produce many files and a `ecosystem.pdf` result in the current dir.

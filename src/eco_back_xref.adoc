@@ -1,8 +1,9 @@
-%!TEX root = ecosystem.tex
+include::in_vars.adoc[]
+:copyright!:
+:license!:
 
-% Bibliography
-\input{eco_back_biblio}
-
+ifeval::["{backend}" == "latexcore"]
+++++
 % Cross references
 % FIXME: For unknown reasons, hanging paragraphs are not indented within our
 % glossaries by default.
@@ -20,12 +21,5 @@ alphabetical order by label.\\}
 \raggedright
 \printglossary[xrefindex]
 }
-
-% Index
-\clearpage
-\renewcommand{\leftmark}{\indexname}
-\renewcommand{\preindexhook}{Constructions whose name appears in \exposid{monospaced italics} are for exposition only.\\}
-{
-\raggedright
-\printindex[generalindex]
-}
+++++
+endif::[]

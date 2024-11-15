@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://isocpp.org/release/schema/std_param-1.0.0.json",
+  "$id": "std_param-1.0.0.json",
   "title": "Structured Parameters Version 1.0.0 JSON Schema",
   "type": "object",
   "properties": {
@@ -36,14 +36,10 @@
   },
   "oneOf": [
     {
-      "required": [
-        "arguments"
-      ]
+      "required": ["arguments"]
     },
     {
-      "required": [
-        "options"
-      ]
+      "required": ["options"]
     }
   ],
   "$defs": {
@@ -56,10 +52,7 @@
       "pattern": "^([a-z0-9_-]+[.])*([a-z0-9_-]+)$"
     },
     "StringOrArray": {
-      "type": [
-        "string",
-        "array"
-      ],
+      "type": ["string", "array"],
       "items": {
         "type": "string"
       }

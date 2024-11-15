@@ -1,0 +1,17 @@
+include::in_vars.adoc[]
+[.text-justify.chapter]
+[[bib,([bib])]]
+= Bibliography
+:copyright: Copyright {docyear} René Ferdinand Rivera Morell
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+// Groups, in order:
+// . ISO documents in numerical order.
+// . Other international standards.
+// . Literature references.
+
+[%bibliography]
+. Internet Engineering Task Force.
+  IETF RFC draft _JSON Schema: A Media Type for Describing JSON Documents_.
+  Available from: https://json-schema.org/draft/2020-12/json-schema-core.html
+  [[jsonschema,([jsonschema])]]

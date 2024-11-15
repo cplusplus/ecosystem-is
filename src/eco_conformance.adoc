@@ -1,0 +1,13 @@
+include::in_vars.adoc[]
+[.text-justify]
+[[intro.cnf,([intro.cnf])]]
+= Conformance [.right]#<<intro.cnf,[intro.cnf]>>#
+:copyright: Copyright {docyear} René Ferdinand Rivera Morell
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+(((conformance)))
+A conforming implementation shall meet the following criteria for conformance
+to this standard:
+
+* An application shall support the minimum level functionality of
+introspection <<intspct.min>>.

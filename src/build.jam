@@ -1,0 +1,92 @@
+#|
+Copyright René Ferdinand Rivera Morell
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
+|#
+
+require-b2 5.3 ;
+
+import toolset ;
+import feature ;
+using asciidoctor ;
+
+# Build LaTex from Asciidoctor..
+
+feature.feature asciidoctor-latexcore.flags : : free optional ;
+toolset.flags $(__name__).asciidoctor-latexcore FLAGS : <asciidoctor-latexcore.flags> ;
+
+actions asciidoctor-latexcore
+{
+	asciidoctor -o$(_)"$(<:D=)" -D$(_)"$(<:D)" $(FLAGS) "$(>)" --trace --warnings --verbose
+}
+
+local tex-parts ;
+for local adoc in [ glob eco_*.adoc in_config.adoc ]
+{
+	tex-parts += [ make $(adoc:B).tex
+		: $(adoc)
+		: @asciidoctor-latexcore
+		: requirements
+			<use>./asciidoctor-latexcore//latexcore
+			<location>.
+	] ;
+}
+alias tex : $(tex-parts) ;
+
+# Build HTML from Asciidoctor..
+
+html ecosystem.html : ecosystem.adoc
+	:	<doc-stage>draft:<asciidoctor-attribute>docstage=draft
+		<doc-stage>final:<asciidoctor-attribute>docstage=final
+		<license>on:<asciidoctor-attribute>doclicense=on
+		<relevant>doc-stage
+		<relevant>license
+	;
+explicit ecosystem.html ;
+
+# Build PDF from LaTex..
+
+feature.feature latexmk.flags : : free optional ;
+toolset.flags $(__name__).latexmk FLAGS <latexmk.flags> ;
+
+actions latexmk
+{
+	export TEXINPUTS="$(>:D):${TEXINPUTS}"
+	latexmk -f -pdf -interaction=nonstopmode -logfilewarnings- -shell-escape -gg -outdir="$(<:D)" -auxdir="$(<:D)" -makeindexfudge $(FLAGS) "$(>:D=)"
+}
+
+local adoc-src = [ glob eco_*.adoc ] ;
+local tex-src = [ glob eco_*.tex in_*.tex *.ist ] ;
+local latexmkrc-src = [ glob *latexmkrc* ] ;
+local _ = " " ;
+
+path-constant latexmkrc : $(latexmkrc-src[1]) ;
+
+rule latex-defs ( properties * )
+{
+	local pretex ;
+	if <doc-stage>final in $(properties)
+	{
+		pretex += "\\\\def\\\\isofinal{yes}" ;
+	}
+	if <license>on in $(properties)
+	{
+		pretex += "\\\\def\\\\license{yes}" ;
+	}
+	return <latexmk.flags>"-usepretex=\"$(pretex:J= )\"" ;
+}
+
+make ecosystem.pdf : ecosystem.tex
+	:	@latexmk
+	:	<dependency>tex
+		# <dependency>$(adoc-src)
+		# <dependency>$(tex-src)
+		<verbose>on:<latexmk.flags>-verbose
+		<verbose>on:<latexmk.flags>-diagnostics
+		<latexmk.flags>-r$(_)"$(latexmkrc)"
+		<conditional>@latex-defs
+		<relevant>doc-stage
+		<relevant>license
+	;
+explicit ecosystem.pdf ;

@@ -1,0 +1,12 @@
+include::in_vars.adoc[]
+[.text-justify]
+[[diag,([diag])]]
+= Diagnostics Output [.right]#<<diag,[diag]>>#
+:copyright: Copyright {docyear} René Ferdinand Rivera Morell
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+[[diag.pre,([diag.pre])]]
+== Preamble [.right]#<<diag.pre,[diag.pre]>>#
+
+This clause describes options, output, and formats that define formatted
+reporting of application diagnostics messages.

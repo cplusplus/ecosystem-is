@@ -1,0 +1,33 @@
+include::in_vars.adoc[]
+
+ifeval::["{backend}" == "latexcore"]
+[subs=macros]
+++++
+%%--------------------------------------------------
+%% Release date
+\DTMsavenow{currentdate}
+\newcommand{\reldate}{\today}
+\newcommand{\relyear}{\DTMfetchyear{currentdate}}
+\newcommand{\relmonth}{\DTMfetchmonth{currentdate}}
+
+%% Version numbers
+\newcommand{\docno}{pass:a[{docno}]}
+\newcommand{\disno}{pass:a[{disno}]}
+\newcommand{\isodocno}{pass:a[{isodocno}]}
+\newcommand{\prevdocno}{pass:a[{prevdocno}]}
+
+%% Title
+\newcommand{\doctitleen}{pass:a[{doctitleen}]}
+\newcommand{\doctitlefr}{pass:a[{doctitlefr}]}
+
+%% Common bits
+\ifdefined\license
+\newcommand{\isocopyright}{\copyright\ ISO/IEC pass:a[{docyear}] --- CC BY 4.0}
+\else
+\newcommand{\isocopyright}{\copyright\ ISO/IEC pass:a[{docyear}] --- All rights reserved}
+\fi
+
+%% States
+\newcommand{\isodoctype}{pass:a[{isodoctype}]}
+\newcommand{\isodocstage}{pass:a[{isodocstage}]}
+++++

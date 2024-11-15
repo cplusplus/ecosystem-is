@@ -1,3 +1,12 @@
+#|
+Copyright René Ferdinand Rivera Morell
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
+|#
+
+require-b2 5.3 ;
+
 import toolset ;
 import feature ;
 
@@ -5,41 +14,12 @@ feature.feature doc-stage : draft final : propagated symmetric ;
 feature.feature verbose : off on : propagated incidental ;
 feature.feature license : off on : propagated symmetric ;
 
-project /ecosystem
+project /cplusplus/ecosystem-is
 	: build-dir .build/b2
+	: default-build <doc-stage>draft <license>off <verbose>on
 	;
 
-local tex-src = [ glob src/eco_*.tex src/in_*.tex src/*.ist ] ;
-local latexmkrc = [ glob src/*latexmkrc* ] ;
-local _ = " " ;
-
-rule latex-defs ( properties * )
-{
-	local pretex ;
-	if <doc-stage>final in $(properties)
-	{
-		pretex += "\\\\def\\\\isofinal{yes}" ;
-	}
-	if <license>on in $(properties)
-	{
-		pretex += "\\\\def\\\\license{yes}" ;
-	}
-	return <flags>"-usepretex=\"$(pretex:J= )\"" ;
-}
-
-make ecosystem.pdf : src/ecosystem.tex
-	:	@latexmk
-	:	<dependency>$(tex-src)
-		<verbose>on:<flags>-verbose
-		<verbose>on:<flags>-diagnostics
-		<flags>-r$(_)"$(latexmkrc[1])"
-		<conditional>@latex-defs
-		<relevant>doc-stage
-		<relevant>license
-	;
-explicit ecosystem.pdf ;
-
-rule install-name ( properties * )
+rule install-name-pdf ( properties * )
 {
 	local name = ecosystem-is ;
 	if <doc-stage>draft in $(properties) { name += draft ; }
@@ -48,18 +28,27 @@ rule install-name ( properties * )
 	return <name>$(name:J=-).pdf ;
 }
 
-install ecosystem-is
-	:	ecosystem.pdf
+install ecosystem-is-latex-pdf
+	:	src//ecosystem.pdf
 	:	<location>.
-		<conditional>@install-name
+		<conditional>@install-name-pdf
+		<relevant>doc-stage
+		<relevant>license
 	;
 
-# Generic latexmk action.
-
-toolset.flags $(__name__).latexmk FLAGS <flags> ;
-
-actions latexmk
+rule install-name-html ( properties * )
 {
-	export TEXINPUTS="$(>:D):${TEXINPUTS}"
-	latexmk -f -pdf -interaction=nonstopmode -logfilewarnings- -shell-escape -gg -outdir="$(<:D)" -auxdir="$(<:D)" -makeindexfudge $(FLAGS) "$(>:D=)"
+	local name = ecosystem-is ;
+	if <doc-stage>draft in $(properties) { name += draft ; }
+	if <doc-stage>final in $(properties) { name += final ; }
+	if <license>on in $(properties) { name += ccby4 ; }
+	return <name>$(name:J=-).html ;
 }
+
+install ecosystem-is-adoc-html
+	:	src//ecosystem.html
+	:	<location>.
+		<conditional>@install-name-html
+		<relevant>doc-stage
+		<relevant>license
+	;

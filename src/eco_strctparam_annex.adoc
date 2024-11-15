@@ -1,0 +1,34 @@
+include::in_vars.adoc[]
+[.ignore]
+[[strctparamjschm.annex,([strctparamjschm.annex])]]
+= Annex B [.right]#<<strctparamjschm.annex,[strctparamjschm.annex]>>#
+:copyright: Copyright {docyear} René Ferdinand Rivera Morell
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+:leveldedent: 1
+
+[.infannex]
+[.text-justify]
+[[strctparamjschm,([strctparamjschm])]]
+== Structured Parameters JSON Schema [.right]#<<strctparamjschm,[strctparamjschm]>>#
+
+
+[[strctparamjschm.general,([strctparamjschm.general])]]
+=== General [.right]#<<strctparamjschm.general,[strctparamjschm.general]>>#
+
+This Annex defines the structured parameters capability schema
+<<strctparam.schema>> in terms of a _JSON Schema_
+<<jsonschema>>.
+
+This JSON Schema can be referenced as the \verb|$schema| field with URI value
+of `"std_param-1.0.0.json"`.
+
+[[strctparamjschm.spec,([strctparamjschm.spec])]]
+=== JSON Schema Specification [.right]#<<strctparamjschm.spec,[strctparamjschm.spec]>>#
+
+[source,json]
+----
+include::../schema/std_param-1.0.0.json[]
+----
+
+:leveldedent: 0

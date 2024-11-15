@@ -1,0 +1,69 @@
+include::in_vars.adoc[]
+= Standard for C++ Ecosystem
+:version-label!:
+:reproducible:
+:nofooter:
+:toc: macro
+:toc-title: Contents
+:toclevels: 5
+:caution-caption: Caution:
+:important-caption: Important:
+:note-caption: Note:
+:tip-caption: Tip:
+:warning-caption: Warning:
+:source-highlighter: rouge
+:texroot!:
+:noheader:
+
+ifeval::["{backend}" == "html5"]
+++++
+<style>
+include::in_html.css[]
+</style>
+++++
+endif::[]
+
+//-------------------------------------------------------------------
+// Front matter..
+:sectnums!:
+
+ifeval::["{docstage}" == "draft"]
+include::eco_cover_wd.adoc[leveloffset=+1]
+endif::[]
+ifeval::["{docstage}" == "final"]
+include::eco_cover_reg.adoc[leveloffset=+1]
+endif::[]
+toc::[]
+include::eco_preface.adoc[leveloffset=+1]
+include::eco_preface_changes.adoc[leveloffset=+1]
+ifeval::["{doclicense}" == "on"]
+include::eco_license.adoc[leveloffset=+1]
+endif::[]
+
+//-------------------------------------------------------------------
+// Chapters..
+:sectnums:
+
+include::eco_scope.adoc[leveloffset=+1]
+include::eco_refs.adoc[leveloffset=+1]
+include::eco_conformance.adoc[leveloffset=+1]
+include::eco_defs.adoc[leveloffset=+1]
+include::eco_introspection.adoc[leveloffset=+1]
+include::eco_strctparam.adoc[leveloffset=+1]
+include::eco_strctparam_core.adoc[leveloffset=+1]
+include::eco_diag.adoc[leveloffset=+1]
+
+//-------------------------------------------------------------------
+// Appendices..
+:sectnums!:
+
+include::eco_introspection_annex.adoc[leveloffset=+1]
+include::eco_strctparam_annex.adoc[leveloffset=+1]
+
+//-------------------------------------------------------------------
+// Back matter..
+:sectnums!:
+
+include::eco_back_biblio.adoc[leveloffset=+1]
+include::eco_back_xref.adoc[leveloffset=+1]
+include::eco_back_index.adoc[leveloffset=+1]

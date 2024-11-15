@@ -1,27 +1,34 @@
 %!TEX root = ecosystem.tex
 
+% Generated file. Do not edit.
+
+% Copyright 2024 René Ferdinand Rivera Morell
+% Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+
+% Tool Introspection JSON Schema
 \infannex{intsjschm}{Tool Introspection JSON Schema}
 
+% General
 \rSec1[intsjschm.general]{General}
 
 \pnum
-This Annex defines the introspection capability schema \iref{intspct.schema} in
-terms of a \emph{JSON Schema}. A \emph{JSON Schema} refers to the IETF RFC draft
-"JSON Schema: A Media Type for Describing JSON Documents" as specified in
-\url{https://json-schema.org/draft/2020-12/json-schema-core.html}.
+This Annex defines the introspection capability schema
+(\ref{intspct.schema}) in terms of a \emph{JSON Schema}
+(\ref{jsonschema}).
 
 \pnum
 This JSON Schema can be referenced as the \verb|$schema| field with URI value
-of \\
-\verb|"https://raw.githubusercontent.com/cplusplus/ecosystem-is/release/schema/std_info-1.0.0.json"|.
+of \verb|"std_info-1.0.0.json"|.
 
+% JSON Schema Specification
 \rSec1[intsjschm.spec]{JSON Schema Specification}
 
-\begin{outputblock}
+
+\begin{lstlisting}
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id":
-    "https://raw.githubusercontent.com/cplusplus/ecosystem-is/release/schema/std_info-1.0.0.json",
+  "$id": "std_info-1.0.0.json",
   "title": "Tool Introspection Version 1.0.0 JSON Schema",
   "$defs": {
     "VersionMin": {
@@ -71,8 +78,7 @@ of \\
       "type": "object",
       "properties": {
         "$schema": {
-          "description":
-            "JSON Schema URI for the version of the tool introspection format.",
+          "description": "JSON Schema URI for the version of the tool introspection format.",
           "type": "string",
           "format": "uri"
         },
@@ -89,8 +95,6 @@ of \\
       "additionalProperties": false
     }
   ],
-  "required": [
-    "std.info"
-  ]
+  "required": ["std.info"]
 }
-\end{outputblock}
+\end{lstlisting}

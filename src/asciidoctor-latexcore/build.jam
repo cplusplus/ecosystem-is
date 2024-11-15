@@ -1,0 +1,19 @@
+#|
+Copyright René Ferdinand Rivera Morell
+Distributed under the Boost Software License, Version 1.0.
+(See copy at http://www.boost.org/LICENSE_1_0.txt)
+|#
+
+require-b2 5.2 ;
+
+project /grafikrobot/asciidoctor-latexcore ;
+
+path-constant here : . ;
+
+alias latexcore
+	: usage-requirements
+		<asciidoctor-latexcore.flags>"-r $(here)/latexcore.rb"
+		<asciidoctor-latexcore.flags>"-b latexcore"
+		<dependency>latexcore.rb
+	;
+explicit latexcore ;

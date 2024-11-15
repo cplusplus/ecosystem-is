@@ -1,0 +1,206 @@
+include::in_vars.adoc[]
+[.text-justify]
+[[strctparam,([strctparam])]]
+= Structured Parameters [.right]#<<strctparam,[strctparam]>>#
+:copyright: Copyright {docyear} René Ferdinand Rivera Morell
+:license: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+[[strctparam.pre,([strctparam.pre])]]
+== Preamble [.right]#<<strctparam.pre,[strctparam.pre]>>#
+
+This clause describes options, output, and formats that control the behavior of
+applications through the specification of arguments and options from
+_structured parameters_.
+
+This clause specifies the ``std.strctparam`` capabilit
+ <<intspct.cap>> version `1.0.0`.
+
+An application can implement this capability.
+
+An application that implements the `std.strctparam` capability shall
+include the `std.strctparam` field and version value in the introspection
+JSON text output <<intspct.schema.cap>>.
+
+[.text-justify]
+[[strctparam.overview,([strctparam.overview])]]
+== Overview [.right]#<<strctparam.overview,[strctparam.overview]>>#
+
+[subs="normal"]
+....
+_application_ +[+ _std-strctparam-input_ _file_ +]+
+....
+
+[[strctparam.input,([strctparam.input])]]
+== Input Option [.right]#<<strctparam.input,[strctparam.input]>>#
+
+[.grammarterm]##std-strctparam-input##
+
+[.indented]
+--
+The pathname of a file to read the _structured parameters_ from.
+The option is specified as `--std-param=`__file__ or `-std-param:`__file__.
+If __file__ is '`-`', the standard input shall be used.
+--
+
+[[strctparam.file,([strctparam.file])]]
+== Files [.right]#<<strctparam.file,[strctparam.file]>>#
+
+An application shall read a valid JSON text file that conforms to the
+_structured parameters_ schema <<strctparam.schema>>.
+
+An application shall interpret the information in the file as if the options
+and arguments in the file occur in the same position as the
+_std-strctparam-input_ parameter of the list of parameters given to
+the application. Given either directly as part of the application command line
+or as part of the arguments field <<strctparam.schema.args>>.
+
+An application shall process arguments in the file in the order that they 
+appear.
+
+An application shall process options in the file as if the a new modified state
+replaces the current state.
+
+[[strctparam.schema,([strctparam.schema])]]
+== Schema [.right]#<<strctparam.schema,[strctparam.schema]>>#
+
+A _structured parameters_ JSON text file shall contain one _structured
+parameters_ JSON object <<strctparam.schema.obj>>.
+
+[[strctparam.schema.obj,([strctparam.schema.obj])]]
+=== Structured Parameters Object [.right]#<<strctparam.schema.obj,[strctparam.schema.obj]>>#
+
+The _structured parameters object_ is the root JSON object of the
+structured parameters JSON text.
+
+A _structured parameters object_ can have the following fields.
+
+A _structured parameters object_ shall have only one of the
+`arguments` and `options` fields.
+
+[[strctparam.schema.schema,([strctparam.schema.schema])]]
+=== JSON Schema Field [.right]#<<strctparam.schema.schema,[strctparam.schema.schema]>>#
+
+[.itemdescr]
+[.fldname]#_Name_:# `$schema` +
+[.fldtype]#_Type_:# `string` +
+[.fldval]#_Value_:#
+  The value shall be a reference to a JSON Schema specification. +
+[.flddesc]#_Description_:#
+  A _structured parameters object_ can contain this field.
+  If a _structured parameters object_ does not contain this field the
+  value shall be a reference to the JSON Schema corresponding to the current
+  edition of this standard <<strctparamjschm>>.
+
+[[strctparam.schema.ver,([strctparam.schema.ver])]]
+=== Version Field [.right]#<<strctparam.schema.ver,[strctparam.schema.ver]>>#
+
+[.itemdescr]
+[.fldname]#_Name_:# `version` +
+[.fldtype]#_Type_:# `string` +
+[.fldval]#_Value_:# `1` or `1.0` or `1.0.0` +
+[.flddesc]#_Description_:#
+  The version field indicates the version of the _structured parameters_
+  represented in the contents of the JSON text.
+  If a _structured parameters object_ does not contain this field the
+  value shall be '1.0.0'.
+
+[[strctparam.schema.args,([strctparam.schema.args])]]
+=== Arguments Field [.right]#<<strctparam.schema.args,[strctparam.schema.args]>>#
+
+[.itemdescr]
+[.fldname]#_Name_:# `arguments` +
+[.fldtype]#_Type_:# `array` +
+[.fldval]#_Value_:#
+  The value shall be a JSON `array`. The items in the `array` shall be of JSON
+  `string` types. +
+[.flddesc]#_Description_:#
+  The arguments field specifies items to be interpreted directly as if they
+  occur in the command line of the program.
+
+The application shall process the items as if they replace the
+`__std-strctparam-input__` argument.
+
+[[strctparam.schema.opts,([strctparam.schema.opts])]]
+=== Options Field [.right]#<<strctparam.schema.opts,[strctparam.schema.opts]>>#
+
+[.itemdescr]
+[.fldname]#_Name_:# `options` +
+[.fldtype]#_Type_:# `object` +
+[.fldval]#_Value_:# The value shall be a JSON `object`. +
+[.flddesc]#_Description_:#
+  A _structured parameters object_ can contain this _structured
+  options_ field. The keys of items shall be _name_
+  <<strctparam.schema.names>> values.
+
+[[strctparam.schema.names,([strctparam.schema.names])]]
+=== Names [.right]#<<strctparam.schema.names,[strctparam.schema.names]>>#
+
+[.bnf]
+name::
+	[.descr]#one or more of:# +
+	[.ucode]#0061# .. [.ucode]#007A# [.uname]#LATIN SMALL LETTER A .. Z# +
+	[.ucode]#0030# .. [.ucode]#0039# [.uname]#DIGIT ZERO .. NINE# +
+	[.ucode]#005F# [.uname]#LOW LINE# [.ucode]#002D# [.uname]#HYPHEN-MINUS#
+scope::
+	name scope-designator [.opt]#scope#
+scope-designator::
+  [.ucode]#002E# [.uname]#FULL STOP#
+
+The _name_ `std` is reserved for _structured options_
+defined in this standard.
+
+Applications can specify vendor designated _name_ parts outside of
+this standard.
+
+[[strctparam.schema.opt.param,([strctparam.schema.opt.param])]]
+=== Structured Option std.param [.right]#<<strctparam.schema.opt.param,[strctparam.schema.opt.param]>>#
+
+The `std.param` _structured option_ defines an option to refer to additional
+_structured parameters_ <<strctparam>> to process.
+
+An application shall implement this option.
+
+The `std.param` option shall have the following fields.
+
+[.itemdescr]
+[.fldname]#_Name_:# `pre` +
+[.fldtype]#_Type_:# `string` or `array` +
+[.fldval]#_Value_:#
+  (for `string`) A pathname to a file containing _structured parameters_
+  <<strctparam>>. +
+[.fldval]#_Value_:#
+  (for `array`) A list of pathname `string` items to files containing
+  _structured parameters_ <<strctparam>> +
+[.flddesc]#_Description_:#
+  One or more references to files that include additional _structured
+  parameters_ <<strctparam>>.
+
+[.itemdescr]
+[.fldname]#_Name_:# `post` +
+[.fldtype]#_Type_:# `string` or `array` +
+[.fldval]#_Value_:#
+  (for `string`) A pathname to a file containing _structured parameters_
+  <<strctparam>>. +
+[.fldval]#_Value_:#
+  (for `array`) A list of pathname `string` items to files containing
+  _structured parameters_ <<strctparam>> +
+[.flddesc]#_Description_:#
+  One or more references to files that include additional _structured
+  parameters_ <<strctparam>>.
+
+A `string` value in the `pre` or `post` field shall be as if the
+value was given as an `array` with the `string` value as the only
+value in the `array`.
+
+An application shall process the _structured parameters_ <<strctparam>> in the
+`pre` field before processing the _structured options_ where the
+`std.param` option is specified.
+
+An application shall process the _structured parameters_ <<strctparam>> in the
+`post` field after processing the _structured options_ where the
+`std.param` option is specified.
+
+An application shall process the _structured parameters_ <<strctparam>> in the
+`pre` and `post` field in the order given in the value applying
+semantics as specified in the parameters or options of the _structured
+parameters_.

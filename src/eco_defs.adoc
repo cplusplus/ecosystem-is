@@ -1,0 +1,90 @@
+include::in_vars.adoc[]
+[.text-justify]
+[[intro.defs,([intro.defs])]]
+= Terms and definitions [.right]#<<intro.defs,[intro.defs]>>#
+
+(((definitions)))
+For the purposes of this document,
+the terms and definitions given in ISO/IEC 2382,
+the terms and definitions given in ISO/IEC 14882:2020,
+and the following apply.
+
+ISO and IEC maintain terminology databases for use in standardization
+at the following addresses:
+
+* ISO Online browsing platform: available at https://www.iso.org/obp/
+* IEC Electropedia: available at https://www.electropedia.org/
+
+Terms that are used only in a small portion of this document are defined where
+they are used and italicized where they are defined.
+
+[%nonum]
+(((application)))
+
+[[defns.application,([defns.application])]]
+application::
+a computer program that performs some desired function.
+
+NOTE: From POSIX.
+
+[%nonum]
+(((capability)))
+
+[[defns.capability,([defns.capability])]]
+capability::
+an aspect of an overall specification that defines a subset of the entire
+specification.
+
+[%nonum]
+(((directory)))
+
+[[defns.directory,([defns.directory])]]
+directory::
+a file that contains directory entries.
+
+NOTE: From POSIX.
+
+[%nonum]
+(((directory entry)))
+
+[[defns.direntry,([defns.direntry])]]
+directory entry::
+an object that associates a filename with a file.
+
+NOTE: From POSIX.
+
+[%nonum]
+(((file)))
+
+[[defns.file,([defns.file])]]
+file::
+an object that can be written to, or read from, or both.
+
+NOTE: From POSIX.
+
+[%nonum]
+(((filename)))
+
+[[defns.filename,([defns.filename])]]
+filename::
+a sequence of bytes used to name a file.
+
+NOTE: From POSIX.
+
+[%nonum]
+(((parent directory)))
+
+[[defns.parentdir,([defns.parentdir])]]
+parent directory::
+a directory containing a directory entry for the file under discussion.
+
+NOTE: From POSIX.
+
+[%nonum]
+(((pathname)))
+
+[[defns.pathname,([defns.pathname])]]
+pathname::
+a string that is used to identify a file.
+
+NOTE: From POSIX.

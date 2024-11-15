@@ -1,0 +1,16 @@
+include::in_vars.adoc[]
+:copyright!:
+:license!:
+
+ifeval::["{backend}" == "latexcore"]
+++++
+% Index
+\clearpage
+\renewcommand{\leftmark}{\indexname}
+\renewcommand{\preindexhook}{Constructions whose name appears in \exposid{monospaced italics} are for exposition only.\\}
+{
+\raggedright
+\printindex[generalindex]
+}
+++++
+endif::[]

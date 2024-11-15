@@ -1,10 +1,14 @@
 %!TEX root = ecosystem.tex
 
-% strctparam
+% Generated file. Do not edit.
+
+% Copyright 2024 René Ferdinand Rivera Morell
+% Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+% Structured Parameters
 \rSec0[strctparam]{Structured Parameters}
 
-
-% strctparam.pre
+% Preamble
 \rSec1[strctparam.pre]{Preamble}
 
 \pnum
@@ -13,8 +17,8 @@ applications through the specification of arguments and options from
 \emph{structured parameters}.
 
 \pnum
-This clause specifies the \verb|std.strctparam| capability \iref{intspct.cap}
-version \verb|1.0.0|.
+This clause specifies the \verb|std.strctparam| capabilit
+ (\ref{intspct.cap}) version \verb|1.0.0|.
 
 \pnum
 An application can implement this capability.
@@ -22,176 +26,183 @@ An application can implement this capability.
 \pnum
 An application that implements the \verb|std.strctparam| capability shall
 include the \verb|std.strctparam| field and version value in the introspection
-JSON text output \iref{intspct.schema.cap}.
+JSON text output (\ref{intspct.schema.cap}).
 
-% strctparam.overview
+% Overview
 \rSec1[strctparam.overview]{Overview}
 
 \pnum
-\begin{outputblock}
-@\emph{application}@ [ @\grammarterm{std-strctparam-input}@ [@\emph{file}@] ]
-\end{outputblock}
+\begin{lstlisting}{}
+@\emph{application}@ [ @\emph{std-strctparam-input}@ @\emph{file}@ ]
+\end{lstlisting}
 
+% Input Option
 \rSec1[strctparam.input]{Input Option}
 
 \pnum
 \grammarterm{std-strctparam-input}
+
 \begin{indented}
-	The pathname of a file to read the \emph{structured parameters} from. The
-	option is specified as \verb@--std-param=file@ or \verb@-std-param:file@. If
-	\emph{file} is ‘\verb@-@’, the standard input shall be used.
+\pnum
+The pathname of a file to read the \emph{structured parameters} from.
+The option is specified as `--std-param=`\emph{file} or `-std-param:`\emph{file}.
+If \emph{file} is ‘-’, the standard input shall be used.
 \end{indented}
 
+% Files
 \rSec1[strctparam.file]{Files}
 
 \pnum
 An application shall read a valid JSON text file that conforms to the
-\emph{structured parameters} schema \iref{strctparam.schema}.
+\emph{structured parameters} schema (\ref{strctparam.schema}).
 
 \pnum
 An application shall interpret the information in the file as if the options
 and arguments in the file occur in the same position as the
-\grammarterm{std-strctparam-input} parameter of the list of parameters given to
+\emph{std-strctparam-input} parameter of the list of parameters given to
 the application. Given either directly as part of the application command line
-or as part of the arguments field \iref{strctparam.schema.args}.
+or as part of the arguments field (\ref{strctparam.schema.args}).
 
 \pnum
-An application shall process arguments in the file in the order that they 
+An application shall process arguments in the file in the order that they
 appear.
 
 \pnum
 An application shall process options in the file as if the a new modified state
 replaces the current state.
 
+% Schema
 \rSec1[strctparam.schema]{Schema}
 
 \pnum
 A \emph{structured parameters} JSON text file shall contain one \emph{structured
-parameters} JSON object \iref{strctparam.schema.obj}.
+parameters} JSON object (\ref{strctparam.schema.obj}).
 
+% Structured Parameters Object
 \rSec2[strctparam.schema.obj]{Structured Parameters Object}
 
 \pnum
-The \emph{structured parameters} object is the root JSON object of the 
+The \emph{structured parameters object} is the root JSON object of the
 structured parameters JSON text.
 
 \pnum
-A \emph{structured parameters} object can have the following fields.
+A \emph{structured parameters object} can have the following fields.
 
 \pnum
-A \emph{structured parameters} object shall have only one of the 
+A \emph{structured parameters object} shall have only one of the
 \verb|arguments| and \verb|options| fields.
 
+% JSON Schema Field
 \rSec2[strctparam.schema.schema]{JSON Schema Field}
 
+
 \begin{itemdescr}
 
-	\pnum \fldname \verb|$schema|
+\pnum \fldname \verb|$schema|
 
-	\pnum \fldtype \verb|string|
+\pnum \fldtype \verb|string|
 
-	\pnum \fldval
-	The value shall be a reference to a JSON Schema specification.
+\pnum \fldval
+  The value shall be a reference to a JSON Schema specification.
 
-	\pnum \flddesc
-	A \emph{structured parameters} object can contain this field. If a
-	\emph{structured parameters} object does not contain this field the value 
-	shall be a reference to the JSON Schema corresponding to the current 
-	edition of this standard (strctparamjschm).
-
+\pnum \flddesc
+  A \emph{structured parameters object} can contain this field.
+  If a \emph{structured parameters object} does not contain this field the
+  value shall be a reference to the JSON Schema corresponding to the current
+  edition of this standard (\ref{strctparamjschm}).
 \end{itemdescr}
 
+% Version Field
 \rSec2[strctparam.schema.ver]{Version Field}
 
+
 \begin{itemdescr}
 
-	\pnum \fldname \verb|version|
+\pnum \fldname \verb|version|
 
-	\pnum \fldtype \verb|string|
+\pnum \fldtype \verb|string|
 
-	\pnum \fldval
-	\verb|1| or \verb|1.0| or \verb|1.0.0|.
+\pnum \fldval \verb|1| or \verb|1.0| or \verb|1.0.0|
 
-	\pnum
-	\flddesc
-	The version field indicates the version of the \emph{structured parameters}
-	represented in the contents of the JSON text. If a \emph{Structured
-	parameters} object does not contain this field the value shall be
-	\verb|1.0.0|.
-
+\pnum \flddesc
+  The version field indicates the version of the \emph{structured parameters}
+  represented in the contents of the JSON text.
+  If a \emph{structured parameters object} does not contain this field the
+  value shall be '1.0.0'.
 \end{itemdescr}
 
+% Arguments Field
 \rSec2[strctparam.schema.args]{Arguments Field}
 
+
 \begin{itemdescr}
 
-	\pnum \fldname \verb|arguments|
+\pnum \fldname \verb|arguments|
 
-	\pnum \fldtype \verb|array|
+\pnum \fldtype \verb|array|
 
-	\pnum \fldval
-	The value shall be a JSON \verb|array|. The items in the \verb|array| shall
-	be of JSON \verb|string| types.
+\pnum \fldval
+  The value shall be a JSON \verb|array|. The items in the \verb|array| shall be of JSON
+  \verb|string| types.
 
-	\pnum \flddesc
-	The arguments field specifies items to be interpreted directly as if they
-	occur in the command line of the program.
-
+\pnum \flddesc
+  The arguments field specifies items to be interpreted directly as if they
+  occur in the command line of the program.
 \end{itemdescr}
 
+\pnum
 The application shall process the items as if they replace the
-\grammarterm{std-strctparam-input} argument.
+\verb|\emph{std-strctparam-input}| argument.
 
+% Options Field
 \rSec2[strctparam.schema.opts]{Options Field}
 
+
 \begin{itemdescr}
 
-	\pnum \fldname \verb|options|
+\pnum \fldname \verb|options|
 
-	\pnum \fldtype \verb|object|
+\pnum \fldtype \verb|object|
 
-	\pnum \fldval
-	The value shall be a JSON \verb|object|.
+\pnum \fldval The value shall be a JSON \verb|object|.
 
-	\pnum \flddesc
-	A \emph{structured parameters} object can contain this \emph{structured
-	options} field.  The keys of items shall be name 
-	\iref{strctparam.schema.names} values.
-
+\pnum \flddesc
+  A \emph{structured parameters object} can contain this \emph{structured
+  options} field. The keys of items shall be \emph{name}
+  (\ref{strctparam.schema.names}) values.
 \end{itemdescr}
 
-\rSec3[strctparam.schema.names]{Names}
+% Names
+\rSec2[strctparam.schema.names]{Names}
 
-\pnum
-\begin{ncbnf}
+\begin{bnf}
 
 \nontermdef{name}\br
-	\descr{one or more of:}\br
-	\ucode{0061} .. \ucode{007A} \uname{LATIN SMALL LETTER A .. Z}\br
-	\ucode{0030} .. \ucode{0039} \uname{DIGIT ZERO .. NINE}\br
-	\ucode{005F} \uname{LOW LINE} \ucode{002D} \uname{HYPHEN-MINUS}
+\descr{one or more of:}\br
+\ucode{0061} .. \ucode{007A} \uname{LATIN SMALL LETTER A .. Z}\br
+\ucode{0030} .. \ucode{0039} \uname{DIGIT ZERO .. NINE}\br
+\ucode{005F} \uname{LOW LINE} \ucode{002D} \uname{HYPHEN-MINUS}
 
 \nontermdef{scope}\br
-	name \opt{scope-designator}
+name scope-designator \opt{scope}
 
 \nontermdef{scope-designator}\br
-	\ucode{002E} \uname{FULL STOP}
-
-\end{ncbnf}
-
+\ucode{002E} \uname{FULL STOP}
+\end{bnf}
 \pnum
-The \grammarterm{name} \verb|std| is reserved for \emph{structured options}
+The \emph{name} \verb|std| is reserved for \emph{structured options}
 defined in this standard.
 
 \pnum
-Applications can specify vendor designated \grammarterm{name} parts outside of
+Applications can specify vendor designated \emph{name} parts outside of
 this standard.
 
+% Structured Option std.param
 \rSec2[strctparam.schema.opt.param]{Structured Option std.param}
 
 \pnum
-The \verb|std.param| structure option defines an option to refer to additional
-structured options \iref{strctparam} to process.
+The \verb|std.param| \emph{structured option} defines an option to refer to additional
+\emph{structured parameters} (\ref{strctparam}) to process.
 
 \pnum
 An application shall implement this option.
@@ -199,60 +210,63 @@ An application shall implement this option.
 \pnum
 The \verb|std.param| option shall have the following fields.
 
-\vspace{\baselineskip}
 
 \begin{itemdescr}
 
-	\pnum \fldname \verb|pre|
+\pnum \fldname \verb|pre|
 
-	\pnum \fldtype \verb|string| or \verb|array|
+\pnum \fldtype \verb|string| or \verb|array|
 
-	\pnum \fldval (for \verb|string|) A pathname to a file containing 
-	structured parameters \iref{strctparam}.
+\pnum \fldval
+  (for \verb|string|) A pathname to a file containing \emph{structured parameters}
+  (\ref{strctparam}).
 
-	\pnum \fldval (for \verb|array|) A list of pathname \verb|string| items to 
-	files containing structured parameters \iref{strctparam}.
+\pnum \fldval
+  (for \verb|array|) A list of pathname \verb|string| items to files containing
+  \emph{structured parameters} (\ref{strctparam})
 
-	\pnum \flddesc
-	One or more references to files that include additional structured 
-	parameters \iref{strctparam}.
-
+\pnum \flddesc
+  One or more references to files that include additional \emph{structured
+  parameters} (\ref{strctparam}).
 \end{itemdescr}
-
-\vspace{\baselineskip}
 
 
 \begin{itemdescr}
 
-	\pnum \fldname \verb|post|
+\pnum \fldname \verb|post|
 
-	\pnum \fldtype \verb|string| or \verb|array|
+\pnum \fldtype \verb|string| or \verb|array|
 
-	\pnum \fldval (for \verb|string|) A pathname to a file containing 
-	structured parameters \iref{strctparam}.
+\pnum \fldval
+  (for \verb|string|) A pathname to a file containing \emph{structured parameters}
+  (\ref{strctparam}).
 
-	\pnum \fldval (for \verb|array|) A list of pathname \verb|string| items to 
-	files containing structured parameters \iref{strctparam}.
+\pnum \fldval
+  (for \verb|array|) A list of pathname \verb|string| items to files containing
+  \emph{structured parameters} (\ref{strctparam})
 
-	\pnum \flddesc
-	One or more references to files that include additional structured 
-	parameters \iref{strctparam}.
-
+\pnum \flddesc
+  One or more references to files that include additional \emph{structured
+  parameters} (\ref{strctparam}).
 \end{itemdescr}
 
-A \verb|string| value in the \verb|pre| or \verb|post| field shall be as if the 
-value was given as an \verb|array| with the \verb|string| value as the only 
+\pnum
+A \verb|string| value in the \verb|pre| or \verb|post| field shall be as if the
+value was given as an \verb|array| with the \verb|string| value as the only
 value in the \verb|array|.
 
-An application shall process the structured parameters \iref{strctparam} in the 
-\verb|pre| field before processing the structured options where the 
+\pnum
+An application shall process the \emph{structured parameters} (\ref{strctparam}) in the
+\verb|pre| field before processing the \emph{structured options} where the
 \verb|std.param| option is specified.
 
-An application shall process the structured parameters \iref{strctparam} in the 
-\verb|post| field after processing the structured options where the 
+\pnum
+An application shall process the \emph{structured parameters} (\ref{strctparam}) in the
+\verb|post| field after processing the \emph{structured options} where the
 \verb|std.param| option is specified.
 
-An application shall process the structured parameters \iref{strctparam} in the 
-\verb|pre| and \verb|post| field in the order given in the value applying 
-semantics as specified in the parameters or options of the structured 
-parameters \iref{strctparam}.
+\pnum
+An application shall process the \emph{structured parameters} (\ref{strctparam}) in the
+\verb|pre| and \verb|post| field in the order given in the value applying
+semantics as specified in the parameters or options of the \emph{structured
+parameters}.
