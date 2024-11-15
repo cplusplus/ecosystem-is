@@ -33,4 +33,7 @@ endif::[]
 ifeval::["{docstage}" == "final"]
 :doctitle: {doctitleen}
 endif::[]
+ifeval::["{docstage}" == "web"]
+:doctitle: Working Draft, {doctitleen}
+endif::[]
 endif::[]

@@ -39,6 +39,7 @@ alias tex : $(tex-parts) ;
 html ecosystem.html : ecosystem.adoc
 	:	<doc-stage>draft:<asciidoctor-attribute>docstage=draft
 		<doc-stage>final:<asciidoctor-attribute>docstage=final
+		<doc-stage>web:<asciidoctor-attribute>docstage=web
 		<license>on:<asciidoctor-attribute>doclicense=on
 		<relevant>doc-stage
 		<relevant>license

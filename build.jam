@@ -10,7 +10,7 @@ require-b2 5.3 ;
 import toolset ;
 import feature ;
 
-feature.feature doc-stage : draft final : propagated symmetric ;
+feature.feature doc-stage : draft final web : propagated symmetric ;
 feature.feature verbose : off on : propagated incidental ;
 feature.feature license : off on : propagated symmetric ;
 
@@ -49,6 +49,14 @@ install ecosystem-is-adoc-html
 	:	src//ecosystem.html
 	:	<location>.
 		<conditional>@install-name-html
+		<relevant>doc-stage
+		<relevant>license
+	;
+
+install ecosystem-pub
+	:	src//ecosystem.html/<doc-stage>web/<license>on
+	:	<location>pub
+		<name>index.html
 		<relevant>doc-stage
 		<relevant>license
 	;

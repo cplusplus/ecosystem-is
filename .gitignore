@@ -239,3 +239,4 @@ report/*.html
 /.build
 
 /ecosystem-is-*.*
+/pub/index.html

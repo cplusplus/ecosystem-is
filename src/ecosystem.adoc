@@ -33,9 +33,27 @@ endif::[]
 ifeval::["{docstage}" == "final"]
 include::eco_cover_reg.adoc[leveloffset=+1]
 endif::[]
+
+ifeval::["{docstage}" == "web"]
+[[covertitle]]
+[.text-center]
+[.title]#**{doctitle}**#
+
+[sidebar]
+--
+[.text-center.small]
+This is _not_ an ISO publication. +
+Generated on {docdatetime} from Asciidoctor sources.
+--
+endif::[]
+
 toc::[]
+
+ifeval::["{docstage}" != "web"]
 include::eco_preface.adoc[leveloffset=+1]
 include::eco_preface_changes.adoc[leveloffset=+1]
+endif::[]
+
 ifeval::["{doclicense}" == "on"]
 include::eco_license.adoc[leveloffset=+1]
 endif::[]
