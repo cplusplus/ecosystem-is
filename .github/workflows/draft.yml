@@ -20,7 +20,7 @@ jobs:
         run: sudo apt-get update
 
       - name: Install (APT)
-        run: sudo apt-get install latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended lmodern
+        run: sudo apt-get install latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended lmodern asciidoctor
 
       - name: Install (B2)
         run: |
