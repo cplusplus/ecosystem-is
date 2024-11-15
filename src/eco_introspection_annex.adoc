@@ -28,7 +28,7 @@ of `"std_info-1.0.0.json"`.
 
 [source,json]
 ----
-include::../schema/std_info-1.0.0.json[]
+include::../pub/std_info-1.0.0.json[]
 ----
 
 :leveldedent: 0

@@ -28,7 +28,7 @@ of `"std_param-1.0.0.json"`.
 
 [source,json]
 ----
-include::../schema/std_param-1.0.0.json[]
+include::../pub/std_param-1.0.0.json[]
 ----
 
 :leveldedent: 0
