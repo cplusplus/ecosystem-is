@@ -1,0 +1,6 @@
+= C++ Ecosystem International Standard
+
+This work has moved to continue progress outside of WG21. See the
+https://github.com/ecostd[EcoStd] project for continued development of
+programming tool ecosystem standards. For more details about the withdrawal
+from WG21 see https://wg21.link/P2556R4.
